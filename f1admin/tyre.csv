@@ -1,0 +1,10 @@
+tyre,hardness,colour,abbreviation,isDry
+hypersoft,1,pink,hs,TRUE
+ultrasoft,2,magenta3,us,TRUE
+supersoft,3,red,ss,TRUE
+soft,4,yellow,s,TRUE
+medium,5,white,m,TRUE
+hard,6,skyblue,h,TRUE
+superhard,7,orange,sh,TRUE
+intermediate,NA,lightblue,i,FALSE
+wet,NA,orange,w,FALSE

@@ -1,0 +1,74 @@
+table,modelStage, column, type, initialStatus
+race,qualifyingOutlier, doneQualifyingOutlier, BOOL, default FALSE
+qualifying,qualifyingOutlier, isOutlier, BOOL, default null
+race,qualifyingModel, doneQualifyingModel, BOOL, default FALSE
+race,qualifyingModel, modQualQualIntercept,"dec(10,3)", default NULL
+qualifying,qualifyingModel, predSec,"dec(10,3)", default null
+qualifying,qualifyingModel, qualProb,"dec(10,3)", default null
+qualifying,qualifyingModel, qualWgt,"dec(10,3)", default null
+racedriver,qualifyingModel, modQualRawDCoef,"dec(10,3)", default null
+racedriver,qualifyingModel, modQualPredNValid,"dec(10,3)", default null
+race,stretchQual, doneStretchQual, BOOL, default FALSE
+race,stretchQual, stretchQual,"dec(10,3)",default NULL
+race,raceOutlier, doneRaceOutlier, BOOL, default FALSE
+racedriverlap,raceOutlier, isOutlier0, BOOL, default NULL
+race,validity4, doneValidity4, BOOL, default FALSE
+race,validity4, isValidRace4, BOOL, default NULL
+racedriverlap,validity4, isGood4, BOOL, default NULL
+race,rawModel4, doneRawModel4, BOOL, default FALSE
+race,rawModel4, mod4FuelCoef,"dec(10,3)", default NULL
+racedriver,rawModel4, mod4RawDCoef,"dec(10,3)", default NULL
+racedriver,rawModel4, mod4PredNValid, SMALLINT, default null
+racetyre,rawModel4, mod4TyreInt,"dec(10,3)", default NULL
+racetyre,rawModel4, mod4TyreSlope,"dec(10,3)", default NULL
+racetyre,rawModel4, mod4TyrePredNValid, SMALLINT, default NULL
+race,model4, doneModel4, BOOL, default FALSE
+race,model4, mod4Intercept,"dec(10,3)", default NULL
+race,model4, mod4QualIntercept,"dec(10,3)", default NULL
+race,stretch4, doneStretch4, BOOL, default FALSE
+race,stretch4, stretch4,"dec(10,3)",default NULL
+race,inlapOutlapDelta, doneInlapOutlapDelta, BOOL, default FALSE
+race,inlapOutlapDelta, inlapDelta, "dec(10,3)", default NULL
+race,inlapOutlapDelta, outlapDelta, "dec(10,3)",default NULL
+race,postDeltaOvertaking, donePostDeltaOvertaking, BOOL, default FALSE
+racedriverlap,postDeltaOvertaking, didOt, SMALLINT, default NULL
+racedriverlap,postDeltaOvertaking, gotOt, SMALLINT, default NULL
+racedriverlap,postDeltaOvertaking, didLap, SMALLINT, default NULL
+racedriverlap,postDeltaOvertaking, gotLap, SMALLINT, default NULL
+race,carProblem, doneCarProblem, BOOL, default FALSE
+racedriver,carProblem, anyCarProblem, BOOL, default FALSE
+racedriver,carProblem, confidentCarProblem, BOOL, default FALSE
+racedriverlap,carProblem, isCarProblem, BOOL, default NULL
+race,tyreValidity30, doneTyreValidity30, BOOL, default FALSE
+racetyre,tyreValidity30, numStint30,"dec(10, 3)", default NULL
+racetyre,tyreValidity30, totalOverlap30, SMALLINT, default NULL
+racetyre,tyreValidity30, sumInternalContrast30,"dec(10,3)", default NULL
+racetyre,tyreValidity30, isValidTyre30, BOOL, default NULL
+race,validity30, doneValidity30, BOOL, default FALSE
+race,validity30, isValidRace30, BOOL, default NULL
+racedriverlap,validity30, isGood30, BOOL, default NULL
+racedriverlap,validity30, isCarProblemButGood30, BOOL, default NULL
+race,rawModel30, doneRawModel30, BOOL, default FALSE
+race,rawModel30, mod30FuelCoef,"dec(10,3)", default NULL
+racedriver,rawModel30, mod30RawDCoef,"dec(10,3)", default NULL
+racedriver,rawModel30, mod30PredNValid, SMALLINT, default null
+racetyre,rawModel30, mod30TyreInt,"dec(10,3)", default NULL
+racetyre,rawModel30, mod30TyreSlope,"dec(10,3)", default NULL
+racetyre,rawModel30, mod30TyrePredNValid, SMALLINT, default NULL
+race,model30, doneModel30, BOOL, default FALSE
+race,model30, mod30Intercept,"dec(10,3)", default NULL
+race,model30, mod30QualIntercept,"dec(10,3)", default NULL
+race,stretch30, doneStretch30, BOOL, default FALSE
+race,stretch30, stretch30,"dec(10,3)",default NULL
+race,stintInterrupt, doneStintInterrupt,BOOL,default FALSE
+stint,stintInterrupt, interrupt,BOOL,default NULL
+race,guessedPitStop, doneGuessedPitStop,BOOL,default FALSE
+stint,guessedPitStop, doneGuessedPitStop, BOOL, default FALSE
+race,alternativeStrategy, doneAlternativeStrategy,BOOL,default FALSE
+race,intendedStopLap, doneIntendedStopLap, BOOL, default FALSE
+stint,intendedStopLap, intendedStopLap, SMALLINT, default NULL
+race,possibleOvertaking, donePossibleOvertaking, BOOL, default FALSE
+race,simulation, doneSimulation,BOOL,default FALSE
+racedriverlap, simulation, updatingDCoef,"dec(10,3)", default NULL
+racedriverlap, simulation, meanFinPos,"dec(10,3)", default NULL
+racedriverlap, simulation, modalFinPosProb,"dec(10,3)", default NULL

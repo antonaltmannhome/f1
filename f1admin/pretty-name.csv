@@ -1,0 +1,55 @@
+type,codeName,prettyName
+circuit,bahrain2010,Bahrain (2010 track)
+circuit,melbourne,Melbourne
+circuit,sepang,Sepang
+circuit,shanghai,Shanghai
+circuit,catalunya,Catalunya
+circuit,monte carlo,Monte Carlo
+circuit,istanbul,Istanbul Park
+circuit,montreal,Montreal
+circuit,valencia s,Valencia
+circuit,silverstone,Silverstone
+circuit,hockenheim,Hockenheim
+circuit,hungaroring,Hungaroring
+circuit,spa francorchamps,Spa
+circuit,monza,Monza
+circuit,marina bay,Singapore
+circuit,suzuka,Suzuka
+circuit,korea,Korea
+circuit,interlagos,Interlagos
+circuit,yas marina,Abu Dhabi
+circuit,nurburgring,Nurburgring
+circuit,buddh,Buddh
+circuit,bahrain,Bahrain (2011-present track)
+circuit,americas,Austin
+circuit,red bull ring,Red Bull Ring
+circuit,sochi,Sochi
+circuit,mexico city,Mexico City
+circuit,baku,Baku
+circuit,paul ricard,Paul Ricard
+country,bahrain,Bahrain
+country,australia,Australia
+country,malaysia,Malaysia
+country,china,China
+country,spain,Spain
+country,monaco,Monaco
+country,turkey,Turkey
+country,canada,Canada
+country,europe,Europe
+country,greatbritain,Great Britain
+country,germany,Germany
+country,hungary,Hungary
+country,belgium,Belgium
+country,italy,Italy
+country,singapore,Singapore
+country,japan,Japan
+country,korea,Korea
+country,brazil,Brazil
+country,abudhabi,Abu Dhabi
+country,india,India
+country,usa,USA
+country,austria,Austria
+country,russia,Russia
+country,mexico,Mexico
+country,azerbaijan,Azerbaijan
+country,france,France
