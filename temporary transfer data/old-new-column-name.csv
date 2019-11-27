@@ -1,0 +1,11 @@
+table,oldcolumn,newcolumn
+racedriv,officialfinpos,officialFinishingPosition
+racedriv,startinggrid,startingGrid
+racedriv,qualprednvalid,modQualPredNValid
+racedriv,qualrawdcoef,modQualRawDCoef
+qualifying,qt,sec
+qualifying,qs,session
+qualifying,isoutlier,isOutlier
+qualifying,predqt,predSec
+qualifying,qualprob,qualProb
+qualifying,qualwgt,qualWgt

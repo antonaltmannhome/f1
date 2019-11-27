@@ -1,0 +1,38 @@
+The latest set of race pace estimates are ready. Here is Belgium firstly:
+
+
+
+Hamilton and Leclerc crossed the line about 1 second apart, following a similar strategy. But while Leclerc had a clear track almost entirely throughout the race, Hamilton lost time behind Vettel both in the early phase of the race and after the pitstop, so Hamilton ends up with the better race pace estimate.
+
+The midfield was again close pacewise. Here are the strategies:
+
+Norris ran in a comfortable 5th place throughout the race so you might have expected his rating to be a little higher than his fellow midfielders. However many of his rivals were disadvantaged by being stuck behind Magnussen, who qualified 7th but was off the pace, early in the race. There were quite a few different strategies but the midfield sorted itself into approximate pace order by the end of the race.
+
+The big exception was Ricciardo, who only finished 13th despite having upper midfield pace. This is partly because he had to pit at the end of lap 1 but Renault's strategy of not pitting again after that was surely a mistake. He was only 4 seconds behind Giovinazzi when Giovinazzi pitted, so could have been running a few seconds behind him at the end if he'd also pitted, but Ricciardo stayed out on his mediums and instead was almost 20 seconds and 4 places behind Giovinazzi at the point when Giovinazzi crashed.
+
+I was interested to see how Albon did in this race but unfortunately it was a little inconclusive. He was overall almost a second off the pace, which doesn't sound too good but Spa is a long lap. We didn't see Verstappen race but he actually qualified more than a second behind Leclerc, although only 4 tenths slower than the Mercedes.
+
+Next, here are the Italian ratings:
+
+So Verstappen came 8th but is rated as the fastest driver. He effectively started his race 40 seconds behind everyone else due to his first lap incident and if we compare his lap times to Leclerc's, while it was clearly a race heavily disrupted by traffic, the laps we did see were fast:
+
+The Hamilton-Bottas comparison might be a little surprising. Given Bottas started behind Hamilton and finished ahead of him, it's probably fair that Bottas has the higher rating but 4 tenths in his favour is a bit of a stretch. In reality Hamilton only had 8 laps included and 4 of those were towards the end of his 2nd stint when he had nothing race for. I'd say it's not one of the model's more reliable estimations.
+
+The Ricciardo/Hulkenberg comparison is interesting, with Hulkenberg emerging ahead despite it looking like a race where Riccardo had him covered. This a bit of a tricky one. The lap times show a clear pattern and based on those, the model's estimates look reasonable:
+
+However, Ricciardo was under no threat from other cars during this phase of the race while Hulkenberg had to keep up the pace to protect himself from Albon and potentially Verstappen later on. It's hard to know what the right thing to do is here, should Riccardo's lap times be ignored in this case? It might seem like they should be, but then if his lap times had been faster than Hulkenberg's anyway despite being under no threat, should they still be ignored? It doesn't feel like it's done the right thing here but fixing it could be complicated and cause other problems.
+
+We next move on to Singapore, where I'm not going to say too much:
+
+
+This race was little like Monaco, with drivers driving well below the pace they were capable of, but unable to overtake. It's very hard to pick out which laps were genuinely reflective of the car's pace so I think the safest thing to do here is put it on the list of races that aren't suitable for the sort of analysis I do, so like Monaco it's excluded from the yearly average calculations and the team mate comparisons.
+
+Finally, here are the Russian ratings:
+
+I won't say too much about this race, but fortunately in this case that's because everything about the numbers look good. The ratings are similar to the finishing order, although a few drivers such as the Mercedes, Magnussen and Albon got lucky with the VSC while Norris, Perez and Hulkenberg were the big losers. Here are the strategies involved, the green hatched bit indicates when the VSC/safety car was out and we can see that the losers were the ones who pitted shortly before it. There are other drivers besides those I've mentioned who were affected but as it happened the impact on their strategy was smaller.
+
+Here are the average race pace ratings for the year:
+
+As far as the Gasly/Albon comparison is concerned, it couldn't really be much closer! I wouldn't read too much into that because it's early days and Albon in particular has not had many clean races. It's interesting that in the midfield, Racing Point have much faster race pace compared to qualifying pace while for Haas it's the other way around.
+
+Here are the updated team mate comparisons:

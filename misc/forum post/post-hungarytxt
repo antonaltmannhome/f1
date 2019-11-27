@@ -1,0 +1,49 @@
+So it's been a few races since the last update, in fact since I last posted we've had the 'awesome foursome' of races at Austria, Great Britain, Germany and Hungary. We've only got race pace ratings for three of them because with Germany being on a wet or drying track for the entire race, the assumptions of the model do not apply at all. So, here are the Austrian ratings:
+
+As we can see, the strategies were quite similar:
+
+Overtaking was also fairly easy so drivers all had plenty of clear laps so set representative times. Verstappen won having ended the first lap in 7th place, so unsurprisingly he has the fastest rating. Vettel's pace suggests he could easily have been a victory contender if he'd had a clean Q3 though. Further down the field, there was a quietly impressive drive from Albon on his way to 15th place. He was on the same strategy as Perez, who finished 11th, but we can see why Albon has been awarded a faster pace estimate:
+
+Here are the ratings for Great Britain:
+
+
+So it's basically a dead heat between Hamilton and Bottas. This might seem a little surprising given that Hamilton was able to follow Bottas so easily until the first pit stops. It's a little complicated to compare them because they followed different strategies:
+
+
+They set very similar lap times after their pit stops. Overall the medium that Bottas was using was estimated to be a little slower when new, but had less degradation, than the hard that Hamilton was using so the end up bin estimated as very similar, however Hamilton did ease up after Bottas made his final stop, which might have lowered his pace estimate slightly.
+
+The big surprise in this list is Stroll. Unlike Albon's estimate in Austria, this is one that I would say is rather more debatable. He was stuck in traffic for the entire first two stints, as were many of the midfield runners such as the Renaults, Raikkonen and Albon. Once he was in free air after his late stop, he was about 1 second a lap faster than those drivers for the final 13 lap of the race. He had fresher tyres than them of course, but given the tyres had low degradation, he gets a lot of credit by the model for doing that.
+
+As mentioned, we skip over Germany and move on to Hungary:
+
+Here are the strategies used:
+
+Hamilton is naturally ranked as the fastest driver although the margin is quite small. For the first stint he was generally running around 2 seconds behind Verstappen so was considered to be running in clear air, so he and Max are ranked roughly equally for this phase of the race. After the stops, Hamilton looked faster but couldn't show it with lap times in clear air because he was so close to Verstappen until the second stop. It's only after that stop that he gets credited with fast lap times, but they're counterbalanced by his 'equal pace' lap times in the first stint, hence the small overall estimated advantage.
+
+Further down we see Albon being ranked best of the rest despite finishing 10th, above even Carlos Sainz, who finished 5th. Their lap times look fairly similar in the second stint when in clear air, but Albon edges it due to Sainz having a few slightly slower laps towards the end of the race.
+
+A quick shout out to Russell, who managed to be rated faster than a non-Williams, if only by 0.01 seconds/lap. It isn't the first time this year actually, because he was faster than Magnussen's strangely slow pace in Canada. I was wondering if Williams are gradually closing the gap to the front of the field this year so here is the gap between Russell and the fastest driver in each race:
+
+race             gapToFastest
+<chr>                   <dbl>
+1 2019australia         3.335
+2 2019bahrain           2.938
+3 2019china             3.349
+4 2019azerbaijan        3.628
+5 2019spain             3.41000
+6 2019monaco            2.24000
+7 2019canada            2.269
+8 2019france            3.073
+9 2019austria           2.00100
+10 2019greatbritain      3.176
+11 2019hungary           2.78200
+
+I would say they're closing a bit. Great Britain is a long track which distorts things a little, but it seems like 3 second gaps are possibly becoming the exception rather than the rule.
+
+So, can't promise anything but hopefully I'll be able to provide updates sooner after the races from now on. I don't actually seem to be saving much time by doing them as a group like this, so I should try to do them when the races are fresher in my mind. It's just a case of finding a convenient time to do them, which isn't always easy. Anyway, here is the overall average for the year:
+
+It's interesting to compare this to last year's plot:
+
+Last year's best-of-the-rest winner was Hulkenberg, who was 1.5 seconds slower than Hamilton. This year, all the Renault, Mclaren, Toro Rosso and Racing Point drivers are faster than that, so the midfield is actually closer to the front, even if it might not feel like it.
+
+Finally here are the team mate comparisons:

@@ -1,0 +1,20 @@
+It's time for the latest race pace updates for this season. Since the previous update there have been three races, the first of which was Monaco. I decided last year that my model wasn't suitable for the way the 2018 Monaco Grand Prix panned out - you may recall that the race was won by Ricciardo, driving a damaged car at a reduced pace with a train of cars behind him, with nobody attempting to get close enough to attempt to overtake. This year was a pretty similar story, with Hamilton having a train of cars behind him through almost the entire race. Further down the field it was a similar story with Stroll/Raikkonen/Sainz/Ricciardo having queues of cars behind them for entended periods. I think the assumptions that my model makes don't really hold for the Monaco Grand Prix, in particular the assumption that a driver is driving as fast as possible if they're >1.5 seconds behind the car ahead. Although the ratings don't look as strange as they did last year, I also don't think they can be properly trusted, so I've decided to exclude it from the yearly average pace calculations and have shaded over it in the team mate comparisons. For what it's worth, here are my estimates:
+
+
+Next we have Canada:
+
+Hamilton, Vettel and Leclerc finished within seconds of each other so it's not surprising they are ranked almost equally. The Renaults and Stroll had impressive looking races and this is borne out in the rankings. This was the only race so far where a Williams has been ranked faster than a non-Williams, with Magnussen's pace being absolutely shocking. I've read through the comments and can't find any suggestion of a genuine technical issue that warrants discounting it, so it will have quite a big effect on the overall average for the season.
+
+Finally, here are the rankings for last Sunday's classic in France:
+
+Nothing too surprising here, although it's interesting to note how much better the Racing Points are on race pace compared to their qualifying pace. The Mclaren's race pace is also maybe a little disappointing bearing in mind they genuinely outqualified Vettel and Gasly. I commented after the Spanish Grand Prix that Haas might have fixed their race pace issues but I clearly spoke too soon, with both cars being firmly at the bottom of the midfield group. Gasly and Giovinazzi both made it into Q3 but did not fare so well in the race. Their strategy of starting on softs probably didn't help, since it was not a popular tyre choice:
+
+However, their pace after that was also lacking, here is Verstappen versus Gasly:
+
+And here is Giovinazzi versus Raikkonen:
+
+Here is the overall average pace so far this season, with, as I mentioned above, Monaco excluded:
+
+While here are the team mate comparisons:
+
+I should hopefully be able to provide the updates following the races more regularly from now on. I haven't brought up as many themes/talking points following the races as in previous years and I expect this will continue to be the case. It's partly a case of time available, but I've got to admit that it's also a bit of a struggle to think of talking points this year! Judging by the other threads in the forum, it seems I'm not alone in feeling this...

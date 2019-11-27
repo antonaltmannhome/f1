@@ -1,0 +1,99 @@
+Hi, it's a little late, but here is the 2019 edition of the race pace analysis thread. There are similar threads for the 2017 season here and 2018 season here. The idea is, we take all lap times by all drivers in each race, apply a common statistical method called linear modelling, and produce a best guess for what each driver's outright pace in each race was.
+
+We'll start off by explaining the method. The explanation that I gave last year seemed to work so I've virtually cut and paste it here, so if you've read that recently, this might sound familiar. I have however replaced the example driver with a more recent example, I've chosen Romain Grosjean from Spain 2019 since he had a fairly typical race, with many laps in clear air but also a few in traffic.
+
+So, as I said, we want to take the lap times for each driver in each race, and from them calculate what their outright pace was. Each lap time is affected by the amount of fuel on board, the tyres used and the age of the tyre, so we need to estimate the effects of those. In addition, lap times can frequently be affected by being stuck behind other cars, or being involved in overtaking battles, so we filter out these laps.
+
+So let's take a look at Grosjean's race in the 2019 Spanish Grand Prix. Here are all of his lap times:
+
+https://i.postimg.cc/bvC2P1Tr/rgrosjean-raw.png
+
+This plot is not great because the scale is dominated by the very slow laps around the pit stops and safety car period, so we'll remove these unrepresentative laps. In general we remove laps done behind the safety car, inlaps, outlaps, lap 1, safety car restart laps and obvious outliers. Next, we'll plot the remaining lap times, but we'll highlight when Grosjean's lap times were affected by traffic. These were at the start of the race before Gasly pulled away, and after the safety car restart while he was involved in battles with Magnussen, Sainz and Kvyat. In general I remove any laps where they overtook someone, got overtaken, got lapped or were blocked. Having done various investigations, I use a definition of being within 1.5 seconds of the car ahead as being blocked.
+
+https://i.postimg.cc/9030Xbqm/rgrosjean-blockedot.png
+
+So the 'clear lap's are the useful ones. However, there are factors that affect these lap times, most importantly the fuel load, which tyre was being used and how long it had been used for. So we'll start off by displaying the effect of the fuel load. Below is the plot of Grosjean's 'clear lap' times, but with a line of best fit going through them - this has been obtained by finding the line that passes most closely through all of the lap times for the clear laps. It doesn't pass very closely between them, but we'll deal with that shortly.
+
+https://i.postimg.cc/C18M28rW/rgrosjean-fuelfitted.png
+
+Using that line, we can display the lap times for Grosjean correcting for the fuel load. These can be thought of as the lap times he would have set if the car had had only 1 lap of fuel in it, and are displayed with the green points here:
+
+https://i.postimg.cc/cCMxxSSh/rgrosjean-fuelcorrected.png
+
+So the biggest trend i.e. lap times dropping throughout the race, has been accounted for. However we notice that the lap times get slower as he gets further into each stint. This is of course the effect of tyre wear. The tyre wear is generally more difficult to estimate accurately than the fuel load because there is quite a lot of variation in how drivers treat their tyres in the race, there are phases when they push and phases when they drop back etc.
+
+There is also the question of whether the tyre wear is different for different cars. There might well be some variation but in this model we group all cars together when estimating the effect of tyres (and the fuel load for that matter). By doing this we get estimates that are certainly close to being accurate for every car and even in the cases where a car does use their tyres a little differently to others, it's rare that it has much of an impact on their final pace estimate because the effects of it tend to balance out over the course of the race.
+
+We'll discuss the tyre wear in more detail later on, but for now we'll display what the effect of the fuel and tyre was for every lap. However, when we say 'tyre effect', it's a bit ambiguous, the effect compared to what? We need to choose a 'reference state' and display how much time was lost compared to it. When we referred to the fuel effect, the reference state was 1 lap of fuel, i.e. we calculated what lap time would have been set with 1 lap of fuel. For tyre, the chosen reference state is a new set of the fastest tyre (when new). As it turns out, the soft tyre is calculated to be the fastest tyre when new.
+
+So here is the display of how each of Grosjean's lap times were affected by fuel, tyre choice and tyre wear on every lap:
+
+https://i.postimg.cc/76SD9kf4/rgrosjean-fuel-Tyre-Effect.png
+
+So we see that we take off less and less throughout the race, as his fuel load goes down. However at the end of the race we still take off almost a second: although he's only got 1 lap of fuel left, his softs have worn down so that's costing him about a second compared to a fresh set.
+
+As before, we then take these numbers away from his actual times to get fuel and tyre corrected times:
+
+https://i.postimg.cc/J01wQHf3/rgrosjean.png
+
+The green line represents the average of all of Grosjean's lap times, accounting for his fuel load and tyres. If Grosjean had driven exactly the same way on every lap, and model was completely correct in estimating the way the Haas used its tyres and fuel loads, then all the red points would lie exactly on the red line. Obviously that isn't the case, so we see a certain amount of scatter.
+
+Grosjean's scatter doesn't have too much of a trend to it, but if we look at the equivalent plot for Hamilton for example, we see that he hasn't set lap times quite in accordance with the calculated adjustments for fuel and tyres.
+
+https://i.postimg.cc/x8j7mDmt/lhamilton.png
+
+ He's faster than we expect in stint 1 but slower in stint 2. This could well be explained by Hamilton's need to push in the first stint in order to build a gap to Bottas prior to his first tyre stop, but to then look after the tyres to the end of the race (which turned out not to be necessary due to the safety car) in the second stint, which he could afford to do given he had an 8 second lead over Bottas during that phase of the race.
+
+So we repeat this process for all drivers and we get the 'average of fuel and tyre corrected lap times' line for all of them, and these represent their race pace estimates. Here are how all the drivers are ranked in the Spanish Grand Prix:
+
+https://i.postimg.cc/1tB7sCd6/2019spain-Race-Pace.png
+
+So Hamilton is rated as the fastest driver, unsurprisingly since he won the race quite comfortably. As mentioned above, he could probably have pushed a bit harder in the second stint if necessary so his advantage possibly could have been bigger if he'd needed it to be.
+
+Vettel is rated a little faster than Leclerc, this is a little hard to judge since they were on different strategies but Vettel is rated a little faster mainly due to some very quick lap times in his second stint.
+
+https://i.postimg.cc/B675mdyh/cleclerc-svettel.png
+
+One little quirk is that Leclerc's stint in the hard tyres don't count towards his rating, because the hard tyre was not used by many drivers thus we can't rate what the effect was on lap times. For the same reason, Giovinazzi does not have a rating, since almost all of his clear lap times were on the hard tyre.
+
+
+
+Meanwhile, here are the graphs for the rankings for the other races this season. I'd say that all races have been quite suitable for the analysis because they've all featured a reasonable amount of field spread. I think it's fair to say that the races have overall been somewhat uneventful so far, but on the bright side, the less chaotic the races, the more reliable these rankings are! If you've got any queries about certain race/driver estimates, I'm happy to display the plots detailing how the calculations have been done.
+
+https://i.postimg.cc/rmQ6QCSV/2019australia-Race-Pace.png
+
+https://i.postimg.cc/L5nWvd9D/2019bahrain-Race-Pace.png
+
+https://i.postimg.cc/j27ptVp5/2019china-Race-Pace.png
+
+https://i.postimg.cc/J43FqQm9/2019azerbaijan-Race-Pace.png
+
+Also, here are the team mate comparisons:
+
+https://i.postimg.cc/2SK7Fqqs/mercedes-2019-30.png
+
+https://i.postimg.cc/8zJ6GZ5Y/ferrari-2019-30.png
+
+https://i.postimg.cc/gJYjxszm/redbull-2019-30.png
+
+https://i.postimg.cc/0Nv24nJD/mclaren-2019-30.png
+
+https://i.postimg.cc/mZPzCd3g/renault-2019-30.png
+
+https://i.postimg.cc/WbR3rsb5/tororosso-2019-30.png
+
+https://i.postimg.cc/k46J6Hrr/alfaromeo-2019-30.png
+
+https://i.postimg.cc/ZKFTd3Qq/haas-2019-30.png
+
+https://i.postimg.cc/BZ23rH4C/racingpoint-2019-30.png
+
+https://i.postimg.cc/fb3nB08m/williams-2019-30.png
+
+Here is the overall average for the season so far:
+
+https://i.postimg.cc/CxdRNRYV/2019-yearly-pace.png
+
+Don't think there can be too many arguments with which team heads the field. The big surprise has been Haas's slow race pace, although they did recover nicely in Spain. Gasly seems to be destined to have a lot of very lonely races this season, while Kvyat is currently the leader of 'Formula 1.5' but I expect the order of that battle will change frequently throughout the season given how close it is. Albon's average is a bit dubious, it's dragged down a lot by his race in Australia, which was a lot slower than Kvyat but is not representative of his pace in general.
+
+As before, all comments and questions are welcome, although I might not be able to reply quite as quickly this year as in the past. I probably won't be able to update after every race this year for matter, but everything should appear at some point throughout the year.
