@@ -1,0 +1,6 @@
+### to be done today:
+# package up latest smoothing stuff
+# make the model comparisons much more user friendly, no need to paste in chunks of code from everywhere. in fact, it should be its own project i think
+# try to test as many of these as possible:
+### what if you change the cutoff for included laps to 1, or 2. or put 0.5 weight on (1, 1.5)
+### what if you downweight low incentive laps (use sim output from old world)

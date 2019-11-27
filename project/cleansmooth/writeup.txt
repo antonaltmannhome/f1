@@ -1,0 +1,45 @@
+So, it's clear that the model I've presented has some limitations and it would be good to improve upon some of these. The problem is, if I make a change to the model, how do I know that I've made it better? What does it even mean for one model to be 'better' than another?
+
+A common criterion for a statistical model is that it should be able to make good predictions of unseen events. For example, let's say I have two competing models so, following the Australian Grand Prix, I have two sets of race pace estimates. We then measure how well each one predicts the Bahrain Grand Prix (exactly what we predict is a difficult choice, we'll discuss that shortly). Naturally, the one that does the better predictions is the one we prefer.
+
+Of course, Bahrain is only one race and race results do not always tally with the form book I DON@T LIKE THAT. We could continue to make predictions as the races occur and keep a running tally of how well the models are doing. However we don't want to have to wait that long to make a comparison. Instead we generalise the idea of an 'unseen' race as follows: there were 21 races last season. For each of these, we can predict what happened in it using the other 20 races. We can do this process for all past seasons (I have data since 2010), meaning I can make predictions for 177 races. If one model is better at making predictions than another at 177 races, that is surely a good indicator that it is a better model.
+
+So, what specifically do we mean by 'predicting a Grand Prix' and how do we measure how well we are predicting it? My model produces estimates for race pace. But there is no observed 'true' race pace that I can compare my estimates against in order measure how well I'm doing. Instead we need to convert them into something that we do observe and the obvious choice to me is the finishing positions of the race. It took me a while to think of a way of doing this and I recently devised the following method.
+
+We start by thinking of each race as a set of two car mini-races between each pair of drivers who finished the race. For example, these are the drivers who finished the 2018 ?? Grand Prix, along with their predicted pace (obtained by averaging their race pace from the other 20 races of the 2018 season).
+
+From these ?? drivers, there are ?? different pairs of drivers, each of which we think of having a mini-race against each other. Here are ??'s mini-races, along with the pace difference between ?? and the other drivers, and whether ?? was the winner of the mini-race:
+
+Next, we plot the pace difference column against the proportion of times the driver won, for all mini-races within all races since the 2010 season. We overlay the line of best fit:
+
+We can effectively read off the line of best fit to get ??'s probability of winning each of his mini-races:
+
+
+
+So, we calculate he should win ?? of his mini-races, and therefore lose ?? of them. That equates to a predicted finishing position of ?? (because if a driver was predicted to lose 0 of his mini-races, that would mean we expect him to finish 1st, so if a driver loses ?? of his mini-races, he is predicted to finish in position 1 + ??). Doing this for all drivers in the ?? Grand Prix, these are the predicted finishing positions:
+
+
+The predicted finishing positions look reliable. If we plot them against actual finishing positions for all the races, along with a 'binned average', they lie on the y=x line:
+
+[is this just going to confuse everybody?]
+
+So, we now measure how well the model does. We calculate the 'error' for each driver in each race, which is the difference between where we predicted they would finish and where they actually finished:
+
+
+So the average error for the ?? Grand Prix was ??. We calculate this for all drivers in all races in order to get the overall average error, and that can be thought of as the 'score' for the model.
+
+So, we'll now apply this method to some candidate models.
+
+- The first one is where you estimate race pace just by taking the average of a driver's lap times for a race (excluding safety cars/lap 1/inlap/outlaps/obvious outliers). We get a score of ??.
+- Next, we exclude blocked laps, laps where a driver overtook or got overtaken for position, or got lapped. Score is ??
+- We add in an adjustment for the fuel load. Score is ??
+- We add in an adjustment for tyre wear, i.e how many laps each tyre has done, but don't factor in what tyre is being used. Score is ??
+- We add in an adjustment for what tyre is being used. This is now the model that I have been using until now. Score is ??
+
+So ?? is the target we need to beat if we think we have improved the model. We will consider some of the possible improvements during the course of this season.
+
+Meanwhile, there are a couple of other models that I thought would be interesting to calculate the score for. A lot of people like to look at qualifying times when comparing drivers and they are certainly easier to use than race lap times. But how well do they predict finishing positions i.e the thing that in my opinion ultimately matters? I have a model for qualifying data that filters out laps where a driver had little incentive to set a fast time, along with any obvious outliers or wet sessions. It gets a score of ??
+
+Another measure that Autosport articles frequently refer to is what they call the 'supertime': the fastest time set by each driver at any point over the course of the weekend. If I replace my race pace numbers with those, I get a score of ??
+
+There are a few details that I've left out here. For example, when we average the 'other' 20 race pace estimates for each driver to produce our predictions, some of the estimates are unreliable due to the driver only doing a small number of laps in the race. Also, there is a wider spread of lap times at a long circuit e.g Spa, than a short one e.g. Interlagos. These things are accounted for, however I think there is enough detail in this post already!
