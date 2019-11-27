@@ -1,0 +1,12 @@
+"","column","use"
+"1","stintkey",FALSE
+"2","sqlrr",FALSE
+"3","dnum",FALSE
+"4","stint",FALSE
+"5","startlap",FALSE
+"6","endlap",FALSE
+"7","tyre",FALSE
+"8","intendedstoplap",FALSE
+"9","doneguessedpitstop",FALSE
+"10","donealternativestrategy",FALSE
+"11","interrupt",FALSE

@@ -1,0 +1,11 @@
+alter table stint drop column stintkey;
+alter table stint drop column sqlrr;
+alter table stint drop column dnum;
+alter table stint drop column stint;
+alter table stint drop column startlap;
+alter table stint drop column endlap;
+alter table stint drop column tyre;
+alter table stint drop column intendedstoplap;
+alter table stint drop column doneguessedpitstop;
+alter table stint drop column donealternativestrategy;
+alter table stint drop column interrupt;
