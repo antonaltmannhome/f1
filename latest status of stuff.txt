@@ -1,0 +1,59 @@
+### isgood4 and isGood disagree. the biggest reason is that old only looks at whether you were blocked at the start of the lap, while new looks at start and end. might be worth restricting new to only look at start - we're not supposed to be changing the model now, so not appropriate to have introduced a change in that way DONE
+
+### however, look at barrichello's startTimeElapseds for Abu Dhabi 2010. They just don't match viewlap e.g for lap 12. Wirth checking that loop. DONE need to compare to temptelapse in old world, not starttelapse
+
+### alos, when a driver has a negative updateTimeGap, they are recorded as blocked but that's surely not correct. but on consideration of first point, not essential to check this now
+
+### have rejigged isgood/validrace hopefully for the better, buthave got the following disagreements:
+> lbl[with(lbl, which(isoutlier0==0 & isOutlier0)),c('race','driver')]
+# A tibble: 3 x 2
+          race      driver
+         <chr>       <chr>
+1   2011europe mschumacher
+2 2014abudhabi    nrosberg
+3   2014canada     vbottas
+> lbl[with(lbl, which(isoutlier0==1 & !isOutlier0)),c('race','driver')]
+# A tibble: 3 x 2
+          race      driver
+         <chr>       <chr>
+1 2015abudhabi mverstappen
+2 2015abudhabi      rmehri
+3   2011europe     jtrulli
+
+### don't worry, just tiny differences in probabilities hitting thresholds, thi sis fine
+
+### after mod4, everything looks good. there are small differences, e.g europe 2012 because of massa having wrong tyres in the old world, singapore 2010 because of buemi, everytnig else looks sound though
+
+### comment above is out of date. happy with everything up until processing of overtaking. pitstopdelta stuff is all fine, only differences are due to oz 2016 red flag, and possible outlier problem with old world qualifying.
+### but inconsistency with overtaking between old and new world. new world has filtered out all overtakings behind safety car/screstart/inlap/outlap, but this has caused disagreements, should probably adjust it so that it's like old world then change again later if that is seen to be a problem
+### have done the above. overtakings and gotoverteksn are just right, but problem with lapping. 
+## in old session: write.csv(file='c:/temp/temp.csv',lbl[,c('rr','driver','lap','gotot','didot','gotlap','didlap')],row.names=F)
+
+b = read.csv('c:/temp/temp.csv')
+lbl2 = left_join(lbl, b)
+lbl2[with(lbl2, which(didlap!=didLap)),c('race','driver','lap','isSafetyCar','isSCRestart','didlap','didLap')] %>%
+arrange(race)
+### no, the problem is with old world, it just doesn't pick up lappings sometimes
+
+lbl2[with(lbl2, which(gotlap!=gotLap)),c('race','driver','lap','isSafetyCar','isSCRestart','gotlap','gotLap')] %>%
+arrange(race)
+### no, i'm giving it a clean bill of health, when they disagree, the only time it's wrong is for drivers unlapping themselves, but that happens once in a blue moon
+
+### so it's carproblem next, this is getting exciting, we're almost there
+
+### and...we've gone backwards again. trying to clean up isGood/isValidRace etc. The problem is this: postDelta/carPRoblem/30 all require isValidRace for model 4. but to get isValidRace for model 4 you've got to have the preDelta overtaking and we don't want that. Should we maybe store isValidRace4 on the database?
+### there's a deeper problem. have fallen into trap of thinking 'stored on database = should always be available'. i think we should switch to horseracing system of 'moredata'. 
+### let's spec that out. so there would be default things included eg driver, sec, lap, tyre, fuel.
+### but then there are two options for moredata. option 1 is that all non-default columns are assigned to a group e.g. preDeltaOvertaking, and you do MoreData('preDeltaOvertaking') to get it. the group is stored in modelColumnDetail, which would also need an 'onDataBase' column in order to help CreateModelColumn and DeleteModelColumn.
+### another observation: could modelColumnDetail and column-guide be sensibly renamed and put in same directory, i constantly confuse them
+### this is a big change, it might be worth making a small data set in order to test out the system
+### let's not make that change just yet. it's not essential, can always introduce that later if excessive columns is a problem
+### carproblem: some utter shite is admitted into isGoodCarproblem, e.g wehrlein belgium 2017, mustcheck that
+### carproblem: might be related, but old world's not been corrected for validtyre, which causes some lbatant tyres to go undetected. As far as I know it doesn't matter if we don't detect outliers for invliad tyres, so we just have to rule those out. but it's not trivial to determine an invalid tyre - can you just use !is.na(mod4predsec)?
+### seem to have fixed that one. have now got to switchgain calculation. unti that point, things like stintprob, sdval, qualSmoothedDCoef all agree apart from what are alomst certainly edge cases. switchgain has some farcical high values in old world but they're NA in new world. that isn't necessarily health, because we might want them checked. ricciardo in spain 2016, stint 4 should be a good non-ridiculous one to look at
+### happy with carproblem. now looking at validity for 30. got quite a big disagreement between isGoodPreValidRace and isgood30==4. for australia2018 it comes down to disagreement in isvalidtyre, not checked any others yet
+### happy with everything, model 30 only disagrees for edge cases, eg short stints, marginal validity. next step: do the thing you want to do with carproblem, it'll cause disgreements but that's fine, we want it to. testing is finished HOORAY
+### except we should check the smoothing and yearly pace rankings all look good
+
+### done stinsummary, tmcomparison (although it could be tidier) and pacerank. driverraceplot works for doubleplot, not checked the includeAdjustedTime or single drier version yet. Do we still need to verify the adjusted one agrees or is it now trivial? Could put f1plot::: in from of all the .DriverRace functions, but not til we're 99% sure it all works fine, souch a pain to recompile the library while debugging
+# have checked the adjusted ones. have been using isOutlier30 to eliminate outliers but it's not a sensible criterian, it eliminates too much. i don't think isoutlier0 is correct either, i just think we should use e.g 3 seconds slower than the slowest non-outlier30 time

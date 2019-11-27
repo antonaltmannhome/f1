@@ -1,0 +1,17 @@
+### how about having a visual routine to choose the inlap and outlap deltas?
+### not done commview yet DONE
+### overtaking done on screstart is discarded at the moment. surely better to keep it and discard it when doing analysis (which is trivial) if desired? likewise for inlaps and outlaps
+### qualprob = -99 in q3, why not NA?
+### increase the number of qualifying simulations? old v new throws up big differences, silly it's jsut because of that. EDIT maybe not such a big deal, it's probably more because of mysd being different, with 1000 sims you get difference up to about 2% DONE
+### if model choice was things like 'mod4' or 'modQual' rather than 4 or 'qual', would tidy up a lot of the inside of functions
+### come up with ggsave2 or something that saves to sensible size by default
+### add indication of latest included race to yearly plot
+### move ALL data files to D drive
+### 2012europe and 2010singapore: old data is wrong with the tyres. would probably be horrific hassle to fix it though, so just have to accept it'll be a teeny bit different for them FIXED
+### outlier0 doesn't exploit isvalidrace, but it should
+### something utterly wierd took place with schumahcer's 1st pit stop at valencia 2010. but it was under the safety car, so ignore
+### generally the pit stop deltas look odd, some NAs in the outlapLoss and notPitTime, plus GB 2011 is different from old world and deeply wrong. think it's high time the graphical thing was set up
+### adding every used thing like rddf, raceDF etc into arguments is annoying and sometimes pointless: only do that if something intermediate is needed, and/or the object is returned. if it uses something that's there from the start, pointless to add it, you can assume it's in the global environment
+	from this point of view, have so far corrected: f1data   
+													outlier0 (nothing to correct)
+### stretching could deal with the dynamic names so much better

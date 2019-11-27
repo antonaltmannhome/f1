@@ -1,0 +1,8 @@
+### this file is intended for bigger jobs
+
+### clean up the whole smoothing and mixing process. there seem to be mutiple ways things that should be more universal: process_smoothing, makesmqmixcoef, makemixqrsmdcoef, yearly-smooth, lblupdate.preparedcoefmix. make code nicer so that there are indicators as to WHY something is not valid for smoothing. it will be complicated though, lots of variations
+### investigate differences between old and new simulations
+### produce that 'clean race' summary graph
+### try to understand vcov(lm model) - make some fictitious data with alomst no overlap between tyres for subsets. this might be a lot easier than MCMC for that sort of problem!
+### nice graphical version of pit stop delta
+### pit stop correction is a horror show, rewrite that
