@@ -5,7 +5,7 @@ MakeRaceFile=function(myRace ,myFile) {
 		stop('You don\'t seem to have included a .dat or similar at the end of the file, exiting...\n')
 	}
 	myYear = substr(myRace, 1, 4)
-	fileout=paste0(USERPATH, 'data/', myYear, '/', myRace, '/', myFile)
+	fileout=paste0(OUTPUTPATH, myYear, '/', myRace, '/', myFile)
 	return(fileout)
 }
 
@@ -23,7 +23,7 @@ MakeYearFile=function(myYear, myFile) {
 	if (any(!grepl('\\..+$',myFile))) {
 		stop('You don\'t seem to have included a .dat or similar at the end of the file, exiting...\n')
 	}
-	fileout=paste0(USERPATH, 'data/', myYear, '/', myFile)
+	fileout=paste0(OUTPUTPATH, myYear, '/', myFile)
 	return(fileout)
 }
 
@@ -58,11 +58,11 @@ CheckDatabaseUpToDate = function() {
 	### do check to see that database is up to date, easy to forget to update it
 	databaseRaceDate = lubridate::ymd(sqlQuery2('select date from race')$date)
 	databaseMaxDate = max(databaseRaceDate)
-	dum=list.files(paste(USERPATH,'data/',sep=''))
+	dum=list.files(OUTPUTPATH)
 	currentMaxYear = max(as.numeric(dum[grep('^2[0-9]{3}$',dum)]))
 	currentMaxYearRaceFile = MakeYearFile(currentMaxYear, 'raceDF.csv')
 	currentYearRaceDF = ReadF1Data(currentMaxYearRaceFile, 'raceDF')
-	dum = list.files(paste0(USERPATH, 'data/', currentMaxYear), rec = TRUE)
+	dum = list.files(paste0(OUTPUTPATH, currentMaxYear), rec = TRUE)
 	raceDir = gsub('/.+$', '', dum[grep('entryetc', dum)])
 	fileMaxDate = max(currentYearRaceDF$date[match(raceDir, currentYearRaceDF$race)])
 

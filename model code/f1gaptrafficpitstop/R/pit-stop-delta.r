@@ -283,7 +283,7 @@ CheckForSuspiciousInlapOutlap = function(lbl) {
 
 	lbl = f1laptimelm::MakePredSec(lbl, 4)
 	# but we only want the newly susicous ones, so check that these haven't already been cleared
-	checkedSuspiciouslyFastPitLap = ReadF1Data('data/suspiciously-fast-pit-lap.csv', 'suspiciouslyFastPitLap')
+	checkedSuspiciouslyFastPitLap = ReadF1Data(paste0(OUTPUTPATH, 'suspiciously-fast-pit-lap.csv'), 'suspiciouslyFastPitLap')
 	lbl = lazy_left_join(lbl, checkedSuspiciouslyFastPitLap, c('race', 'driver', 'lap'), 'isOK')
 
 	suspiciouslyFastIndex = with(lbl, which(impsec < mod4PredSec - 3 &
@@ -303,7 +303,7 @@ CorrectPitLinePositionProblem = function(lbl) {
 
 	# let's first check to see if there are surprising new additions to the list of drivers who've had suspicious fast laps
 
-	pitStopTimeingLineCorrectionDF = ReadF1Data('data/pit-stop-timing-line-correction.csv',
+	pitStopTimeingLineCorrectionDF = ReadF1Data(paste0(OUTPUTPATH, 'pit-stop-timing-line-correction.csv'),
 												'PitStopTimingLineCorrection')
 	lbl = indicate_overlapping_combination(
 				lbl,

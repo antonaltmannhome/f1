@@ -147,7 +147,7 @@ GetTeamName = function(rddf) {
 	rddf$team = gsub('(^[a-z ]+)( .+$)', '\\1', rddf$car)
 	rddf$team = gsub('mercedes mgp', 'mercedes', rddf$team)
 	# for when we want to link season together, we need to know when the team name has changed - also, this is useful for if you can't remember what a team was known as when e.g when renault was lotus, lotus was caterham etc
-	teamNameMapDF = ReadF1Data('data/team-name-map.csv', 'teamNameMapDF')
+	teamNameMapDF = ReadF1Data(paste0(OUTPUTPATH, 'team-name-map.csv'), 'teamNameMapDF')
 	rddf$aaTeam = rddf$team # except...
 	for (ti in 1:nrow(teamNameMapDF)) {
 		toChangeIndex = with(rddf, which(team == teamNameMapDF$team[ti] &

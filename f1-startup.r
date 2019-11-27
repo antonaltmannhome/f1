@@ -1,11 +1,12 @@
 source('c:/research/general_startup.r')
 
 library(RODBC)
-USERPATH = 'c:/research/f1/'
+USERPATH = 'c:/git/f1/'
 COREPATH = paste0(USERPATH, 'core/')
 UPDATECODEPATH = paste0(USERPATH, 'update/')
 MODELCODEPATH = paste0(USERPATH, 'model code/')
 HTMLPATH = 'd:/dropbox/f1 data newworld/html/'
+OUTPUTPATH = 'd:/f1 data/output/'
 ANTONCOMPUTER = c('ANTONLAPTOP', 'ANTON-PCHD2')
 thiscomputer = Sys.info()[['nodename']]
 TEMPPATH = 'c:/temp/'
