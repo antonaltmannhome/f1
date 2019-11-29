@@ -47,7 +47,7 @@ ReadF1Data = function(myFile, myRName) {
 }
 
 UpdateDatabase = function() {
-	write(file=paste(SQLPATH,'temp.bat',sep=''),'mysqldump --login-path=local cleanf1 > "c:\\\\research\\\\f1\\\\data\\\\cleanf1.sql"')
+	write(file=paste(SQLPATH,'temp.bat',sep=''),'mysqldump --login-path=local cleanf1 > "d:\\\\f1output\\\\cleanf1.sql"')
 	Sys.sleep(1)
 	system(paste(SQLPATH,'temp.bat',sep=''))
 	print('Have just updated the database backup')
