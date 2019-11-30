@@ -348,28 +348,16 @@ CombineTeamMateComparison = function(myYear, modelchoice) {
 	PLOTPATH = paste(USERPATH, 'data/',myYear, '/tmcomparison/modelchoice', modelchoice, '/', sep = '')
 	if (!dir.exists(PLOTPATH)) dir.create(PLOTPATH)
 
-	tmpairing = rddf %>%
-				filter(year == myYear) %>%
-				select(race, team, driver, daynum) %>%
-				group_by(race, team) %>%
-				arrange(daynum, driver) %>%
-				mutate(dnum = 1:n()) %>%
-				tidyr::spread(key = dnum, value = driver, sep = '') %>%
-				ungroup() %>%
-				filter(!is.na(dnum1) & !is.na(dnum2)) %>%
-				group_by(team, dnum1, dnum2) %>%
-				filter(daynum == min(daynum)) %>%
-				arrange(team, daynum) %>%
-				select(-c(race, daynum))
-
+	tmpairing = f1data:::GetAllDriverTeamPairingByYear(myYear)
+	
 	# do we want to add main title? if it's the first in the list, yes
 	tmpairing = tmpairing %>%
-				group_by(team) %>%
-				mutate(addmaintitle = c(TRUE, rep(FALSE, n() - 1))) %>%
-				ungroup()
-
+	  group_by(team) %>%
+	  mutate(addmaintitle = c(TRUE, rep(FALSE, n() - 1))) %>%
+	  ungroup()
+	
 	for (j in 1:nrow(tmpairing)) {
-		f1plot:::TeamMateComparison(myYear, tmpairing$dnum1[j], tmpairing$dnum2[j], modelchoice,
+		f1plot:::TeamMateComparison(myYear, tmpairing$driver1[j], tmpairing$driver2[j], modelchoice,
 							toFile = TRUE, addmaintitle = tmpairing$addmaintitle[j])
 	}
 
@@ -378,7 +366,7 @@ CombineTeamMateComparison = function(myYear, modelchoice) {
 	for (j in 1:length(myunteam)) {
 		currentnumpair = sum(tmpairing$team == myunteam[j])
 		currentTeamCombinedShortFile = gsub(' ', '', paste(myunteam[j], '_', myYear, '_',  modelchoice, '.png', sep = ''))
-		currentPairingShortFile = with(tmpairing, paste(dnum1, '_', dnum2, '_', myYear, '_', modelchoice,'.png', sep = '')[team == myunteam[j]],)
+		currentPairingShortFile = with(tmpairing, paste(driver1, '_', driver2, '_', myYear, '_', modelchoice,'.png', sep = '')[team == myunteam[j]],)
 
 		currentTeamCombinedFile = f1plot:::.TeamMateMakeFile(myYear, modelchoice, currentTeamCombinedShortFile)
 		currentPairingFile = f1plot:::.TeamMateMakeFile(myYear, modelchoice, currentPairingShortFile)

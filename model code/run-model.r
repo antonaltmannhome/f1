@@ -29,6 +29,7 @@ f1gaptrafficpitstop::GetPostDeltaOvertaking()
 
 f1carproblem::ProcessCarProblem()
 
+# NB still got an issue: if you retrospectively declare a driver has a carproblem, then you need to update validity30 for that race, but this isn't yet happening
 modelchoice = 30
 f1validity::UpdateValidity(modelchoice)
 f1laptimelm::ProcessLapTimeModel(modelchoice)
