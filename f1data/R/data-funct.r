@@ -401,3 +401,24 @@ ViewLap = function(myRace,lapNumber, addColumn = NULL) {
 
   return(asteriskedCurrentLapDF)
 }
+
+GetAllDriverTeamPairingByYear = function(myYear) {
+  
+  tmPairing = rddf %>%
+    filter(year == myYear) %>%
+    select(race, team, driver, daynum) %>%
+    group_by(race, team) %>%
+    arrange(daynum, driver) %>%
+    mutate(dnum = 1:n()) %>%
+    tidyr::spread(key = dnum, value = driver, sep = '') %>%
+    ungroup() %>%
+    filter(!is.na(dnum1) & !is.na(dnum2)) %>%
+    group_by(team, dnum1, dnum2) %>%
+    filter(daynum == min(daynum)) %>%
+    arrange(team, daynum) %>%
+    select(-c(race, daynum)) %>%
+    rename(driver1 = dnum1,
+           driver2 = dnum2)
+  
+  return(tmPairing)
+}

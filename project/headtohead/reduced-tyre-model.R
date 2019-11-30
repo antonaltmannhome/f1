@@ -7,8 +7,21 @@
 # lbl = f1laptimelm::CalculateFuelTyreEffect(lbl, 30)
 # no don't do that, because it uses all data so has unfair advantage
 
+CalculateNonDriverEffect = function(myLbl, mod) {
+  # no can't use this i don't think, see comment at end
+  uglyDriverCoef = coef(mod)[grep('factor\\(driver\\)', names(coef(mod)))]
+  neatDriverCoefDF = list_to_tibble(uglyDriverCoef,
+                                    name = 'driver', value = 'driverCoef') %>%
+                      mutate(driver = gsub('.+\\)', '', driver))
+  myLbl = left_join(myLbl, neatDriverCoefDF, 'driver')
+  # then get overall prediction
+  # no can't do that, due to excluded drivers
+  myLbl$predSec = predict(mod, myLbl)
+  return(myLbl)
+}
+
 SingleRaceFitFuelOnlyLm = function(myLbl, myDriv1, myDriv2, myYear) {
-  mod = lm(sec ~ factor(driver) + fuel,
+  mod = lm(sec ~ factor(driver) + fuel - 1,
            data = myLbl %>% filter(!(driver %in% c(myDriv1, myDriv2) & year == myYear)))
   myLbl$fuelOnlyEffect = coef(mod)[['fuel']] * myLbl$fuel
   return(myLbl %>%
