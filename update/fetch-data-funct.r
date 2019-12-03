@@ -493,7 +493,7 @@ StripTyreSpeedtrap = function(myRace) {
 	dfilename=MakeHtmlRaceFile(myRace, paste0('driverrace/',b$driver,'.htm'))
 	drivdum=b$driver
 
-	missingTyreInfoFile = paste0(USERPATH, 'data/tyre-override.csv')
+	missingTyreInfoFile = paste0(OUTPUTPATH, 'tyre-override.csv')
 	missingTyreInfo = ReadF1Data(missingTyreInfoFile, 'tyreOverride')
 	missingTList = rep(NA, length(drivdum))
 	if (any(missingTyreInfo$race == myRace)) {
