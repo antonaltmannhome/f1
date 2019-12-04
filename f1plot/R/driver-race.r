@@ -4,7 +4,7 @@
 	myteam=rddf$team[with(rddf,which(driver==myDriv & race==myRace))]
 	myYear=rddf$year[with(rddf,which(driver==myDriv & race==myRace))]
 
-	colourdf=ReadF1Data('data/team-colour.csv', 'teamColour')
+	colourdf=ReadF1Data(paste0(OUTPUTPATH, 'team-colour.csv'), 'teamColour')
 
 	colourScheme = colourdf[with(colourdf, which(year==myYear & team==myteam)),]
 	colourScheme$carproblem = colourScheme$outlier

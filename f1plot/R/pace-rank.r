@@ -284,7 +284,8 @@ RacePaceAndNumObPlot = function(myRace) {
 
 	haveCarproblemDriver = nrow(myCarProbPaceDF) > 0
 	if (haveCarproblemDriver) {
-		myPaceDF = bind_rows(myPaceDF, myCarProbPaceDF)
+		myPaceDF = bind_rows(anti_join(myPaceDF, myCarProbPaceDF, 'driver'),
+		                     myCarProbPaceDF)
 	}
 	myPaceDF = lazy_left_join(myPaceDF,
 								rddf %>%
