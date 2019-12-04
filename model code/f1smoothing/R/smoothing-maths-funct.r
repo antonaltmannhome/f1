@@ -137,9 +137,11 @@ FilterRddfByTime = function(ri, rddf, smoothParam) {
 
 DetectModelHasBeenRun = function(rddf, raceDF, whatToSmooth) {
 	rddf = lazy_left_join(rddf, raceDF, 'race', 'doneQualifyingModel')
-	rddf = lazy_left_join(rddf, raceDF, 'race', paste0('doneRawModel', whatToSmooth$modelChoice))
 	rddf$haveRunQualModel = with(rddf, doneQualifyingModel)
-	rddf$haveRunRaceModel = with(rddf, get(paste0('doneRawModel', whatToSmooth$modelChoice)))
+  if (whatToSmooth$modelChoice != 'qual') {
+  	rddf = lazy_left_join(rddf, raceDF, 'race', paste0('doneRawModel', whatToSmooth$modelChoice))
+  	rddf$haveRunRaceModel = with(rddf, get(paste0('doneRawModel', whatToSmooth$modelChoice)))
+  }
 
 	return(rddf)
 }

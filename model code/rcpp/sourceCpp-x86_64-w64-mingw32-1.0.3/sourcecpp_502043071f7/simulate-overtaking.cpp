@@ -12,15 +12,14 @@ int RcppChoose(int n, int k) {
 }
 
 // [[Rcpp::export]]
-double RcppInvlogit(double x) {
-  double y = R::plogis(x, 0.0, 1.0, TRUE, FALSE);
-  return y;
-}
 
-// [[Rcpp::export]]  
-double RcppLogit(double x) {
-  double y = R::qlogis(x, 0.0, 1.0, TRUE, FALSE);
-  return y;
+double RcppInvLogit(double x) {
+	double invlogitedx;
+	if (x < -10.0) invlogitedx = 0.0;
+	if (x > 10.0) invlogitedx = 1.0;
+	if (x > -10.0 & x < 10.0) invlogitedx =  exp(x) / (1.0 + exp(x));
+	
+	return invlogitedx;
 }
 
 // [[Rcpp::export]]
@@ -126,4 +125,56 @@ IntegerMatrix RcppGetOvertakingSummary(NumericVector myPredEndTelapse,
 	}
  
 	return outputTibble;
+}
+
+
+#include <Rcpp.h>
+// RcppChoose
+int RcppChoose(int n, int k);
+RcppExport SEXP sourceCpp_1_RcppChoose(SEXP nSEXP, SEXP kSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< int >::type n(nSEXP);
+    Rcpp::traits::input_parameter< int >::type k(kSEXP);
+    rcpp_result_gen = Rcpp::wrap(RcppChoose(n, k));
+    return rcpp_result_gen;
+END_RCPP
+}
+// RcppInvLogit
+double RcppInvLogit(double x);
+RcppExport SEXP sourceCpp_1_RcppInvLogit(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< double >::type x(xSEXP);
+    rcpp_result_gen = Rcpp::wrap(RcppInvLogit(x));
+    return rcpp_result_gen;
+END_RCPP
+}
+// RcppAllTrue
+bool RcppAllTrue(LogicalVector x);
+RcppExport SEXP sourceCpp_1_RcppAllTrue(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< LogicalVector >::type x(xSEXP);
+    rcpp_result_gen = Rcpp::wrap(RcppAllTrue(x));
+    return rcpp_result_gen;
+END_RCPP
+}
+// RcppGetOvertakingSummary
+IntegerMatrix RcppGetOvertakingSummary(NumericVector myPredEndTelapse, int numSim, int numDriver, double circuitOvertakingCoef, double overtakingGapCoef);
+RcppExport SEXP sourceCpp_1_RcppGetOvertakingSummary(SEXP myPredEndTelapseSEXP, SEXP numSimSEXP, SEXP numDriverSEXP, SEXP circuitOvertakingCoefSEXP, SEXP overtakingGapCoefSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type myPredEndTelapse(myPredEndTelapseSEXP);
+    Rcpp::traits::input_parameter< int >::type numSim(numSimSEXP);
+    Rcpp::traits::input_parameter< int >::type numDriver(numDriverSEXP);
+    Rcpp::traits::input_parameter< double >::type circuitOvertakingCoef(circuitOvertakingCoefSEXP);
+    Rcpp::traits::input_parameter< double >::type overtakingGapCoef(overtakingGapCoefSEXP);
+    rcpp_result_gen = Rcpp::wrap(RcppGetOvertakingSummary(myPredEndTelapse, numSim, numDriver, circuitOvertakingCoef, overtakingGapCoef));
+    return rcpp_result_gen;
+END_RCPP
 }
