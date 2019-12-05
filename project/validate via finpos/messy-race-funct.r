@@ -18,15 +18,6 @@ MakeRetirementLap = function(rddf, lbl) {
 
 MakeMFDelta = function(lbl) {
 
-	# mmm, we really need the simulations for this
-	rdlFile = paste0(USERPATH, 'project/validate via finpos/race-driver-lap-simulation.csv')
-	raceDriverLapSimulation = read.csv(rdlFile, as.is = TRUE) %>%
-								rename(race = racename) %>%
-								rename(meanFinPos = mod34meanfinpos)
-
-	lbl = left_join(lbl, raceDriverLapSimulation, c('race', 'driver', 'lap'))
-	### ok, now we might have more joy with that
-
 	dum = lbl %>%
 			group_by(race, driver) %>%
 			arrange(lap) %>%
@@ -212,7 +203,7 @@ MakeCleanRace = function(rddf, modelChoice, includeIntermediateColumn = FALSE) {
 	rddf = remove_column(rddf, messinessColumn)
 
 	if (!includeIntermediateColumn) {
-		problemColumn = c('qualDelta', 'hadSlowPitStop', 'hadCarProblem', 'hadVerySlowLap',
+		problemColumn = c('qualDelta', 'hadVerySlowPitStop', 'hadCarProblem', 'hadVerySlowLap',
 						'simIndicatesDisaster', 'hadFirstLapDisaster', 'hadFirstLapProblem',
 						'isRetirement', 'isValidRace')
 		rddf = remove_column(rddf, problemColumn)
