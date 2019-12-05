@@ -72,7 +72,7 @@ GetTeamCoef = function(myRaceDriverCoefDF) {
 GetYearlyCoef = function(myYear) {
 
 	# ditch badly fitted races
-	terriblyFittedRacename = scan(paste0(USERPATH,'data/valid-but-terribly-fitted-race.dat'), what = '', quiet = TRUE)
+	terriblyFittedRacename = scan(paste0(OUTPUTPATH,'valid-but-terribly-fitted-race.dat'), what = '', quiet = TRUE)
 	raceDF$isValidRace30[which(raceDF$race %in% terriblyFittedRacename)] = FALSE
 
 	raceDriverCoefDF = rddf %>%

@@ -1,0 +1,41 @@
+So here are the final team mate comparisons:
+
+A few interesting trends here. The difference between Hamilton and Bottas is rarely large, but the way Hamilton so consistently has the small edge is remarkable. At Renault we can see the advantage steadily swing towards Ricciardo as the season progresses. Likewise, as for Racing Point improved, Perez built up a very solid advantage over Stroll in the second half of the season. At Alfa Romeo, there were echoes of the Raikkonen/Grosjean at Lotus, with Giovinazzi, like Grosjean, regularly outqualifying Raikkonen but Raikkonen generally having the upper hand in the races.
+
+https://i.postimg.cc/hPVTYgWK/mercedes-2019-30.png
+
+https://i.postimg.cc/gc8xzDMD/ferrari-2019-30.png
+
+https://i.postimg.cc/bJbwvyRJ/redbull-2019-30.png
+
+https://i.postimg.cc/LXMMNzz9/renault-2019-30.png
+
+https://i.postimg.cc/13NT28Rf/mclaren-2019-30.png
+
+https://i.postimg.cc/Y98yYgRy/racingpoint-2019-30.png
+
+https://i.postimg.cc/76LNvR1m/tororosso-2019-30.png
+
+https://i.postimg.cc/J4Xvdyzt/alfaromeo-2019-30.png
+
+https://i.postimg.cc/xCqFG8Zf/haas-2019-30.png
+
+https://i.postimg.cc/RZ9ssXYb/williams-2019-30.png
+
+Meanwhile, here is the overall average race pace for the season:
+
+https://i.postimg.cc/h4178s9G/2019-yearly-pace.png
+
+So once again we see the clear division between the big three teams and the rest, although it's a little less noticeable on the graph compared to last year, partly because the 2nd Red Bull is halfway between the two groups, but also, the midfield actually gained about three tenths over the big three this season. Here is last year's plot for comparison:
+
+https://i.postimg.cc/ZnwQ63b5/2018-yearly-pace.png
+
+The big winners are clearly Mclaren, gaining about 4 tenths compared to last year (and arguably a little more than that depending on how much pace Alonso brings compared to Sainz and Norris). The losers are clearly Ferrari, losing about 3 tenths, and Haas, losing about 0.25 seconds/lap, which was particularly painful given that the midfield generally gained on the frontrunners.
+
+So, that wraps things up for this season. I've been less active than in the previous couple of seasons, and I'm wondering if I've said most of what there is to say concerning how the model treats the lap times. The race reports I have done this year seem to be repeating a lot of the themes from previous reports, e.g. the main things it doesn't handle so well are
+* when a driver has nothing to play for and backs off
+* when a driver is doing a long stint, it might not make enough of an allowance for them driving to conserve their tyres
+* if a driver spends a lot of time following and overtaking cars, we often here that it harms the tyres and I don't take account of that
+* if a driver is within 1.5 seconds of the driver in front, I exclude the lap time, otherwise I include it. It feels like a bit of an abrupt cutoff and there are some rare occasions where a driver would actually be rated faster if their excluded lap times had been included.
+
+But as I've said before, individual races will always have some unreliable estimates but the pattern over the whole season can be trusted e.g do any of the team mate comparison plots fail the 'eye test'? I don't think so. So I think it probably makes sense to focus more on trends over the season next year rather than give detailed explanations for every race. I felt like I was phoning them in a bit this year and I don't really fancy saying the same kind of things again 22 times next year! What I will do over winter is start a new thread, open to suggestions but I was thinking of calling it something like 'the number crunching, plots and analysis thread' and put more general posts in there when they're ready. I've got quite a few ideas for analysis and graphs not directly related to f1 race pace as well that I might want to contribute to it, I think that might be a more interesting (and convenient!) plan from now on.
