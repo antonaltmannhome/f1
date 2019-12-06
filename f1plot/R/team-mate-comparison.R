@@ -66,7 +66,7 @@ TeamMateComparison=function(myYear, mydriv1,mydriv2,modelchoice,
 	# what about badly fitted races, we don't want them
 	sbsdf = lazy_left_join(sbsdf, raceDF, 'race', c('daynum', isValidLabel$isValidRace, 'prettyRace', 'prettyCountry'))
 	names(sbsdf)[names(sbsdf)==isValidLabel$isValidRace] = 'isValidRace'
-	terriblyFittedRace = scan(paste0(USERPATH,'data/valid-but-terribly-fitted-race.dat'), what = '', quiet = TRUE)
+	terriblyFittedRace = scan(paste0(OUTPUTPATH,'valid-but-terribly-fitted-race.dat'), what = '', quiet = TRUE)
 	sbsdf$isfittedok = TRUE
 	sbsdf$isfittedok[which(sbsdf$race %in% terriblyFittedRace)] = FALSE
 	curteam=sbsdf$team1[1]
@@ -139,7 +139,7 @@ TeamMateComparison=function(myYear, mydriv1,mydriv2,modelchoice,
 	sbsdf$reasonxcoord2[sax]=sax+0.35
 
 	### right, it is now time to import the pretty colours
-	teamColour = ReadF1Data(paste0(USERPATH, 'data/team-colour.csv'), 'teamColour')
+	teamColour = ReadF1Data(paste0(OUTPUTPATH, 'team-colour.csv'), 'teamColour')
 
 	mycol=with(teamColour, panel[year==myYear & team==curteam])
 	myscheme=with(teamColour, scheme[year==myYear & team==curteam])
@@ -345,7 +345,7 @@ TeamMateComparison=function(myYear, mydriv1,mydriv2,modelchoice,
 }
 
 CombineTeamMateComparison = function(myYear, modelchoice) {
-	PLOTPATH = paste(USERPATH, 'data/',myYear, '/tmcomparison/modelchoice', modelchoice, '/', sep = '')
+	PLOTPATH = paste(OUTPUTPATH, myYear, '/tmcomparison/modelchoice', modelchoice, '/', sep = '')
 	if (!dir.exists(PLOTPATH)) dir.create(PLOTPATH)
 
 	tmpairing = f1data:::GetAllDriverTeamPairingByYear(myYear)

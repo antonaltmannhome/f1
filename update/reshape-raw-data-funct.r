@@ -121,7 +121,7 @@ MakeQualifyingSessionDF = function(myRace) {
 														'isWet')
 	
 	# but have some sessions been abandoned?
-	abandonedQualifyingSessionFile = paste0(USERPATH, 'data/abandoned-qualifying-session.csv')
+	abandonedQualifyingSessionFile = paste0(OUTPUTPATH, 'abandoned-qualifying-session.csv')
 	abandonedQualifyingSessionDF = ReadF1Data(abandonedQualifyingSessionFile, 'abandonedQualifyingSessionDF')
 	qualifyingSessionDF = indicate_overlapping_combination(qualifyingSessionDF,
 														abandonedQualifyingSessionDF,

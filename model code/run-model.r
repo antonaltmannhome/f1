@@ -1,4 +1,4 @@
-source('c:/research/f1/f1-startup.r')
+source('c:/git/f1/f1-startup.r')
 
 f1qualifying::RunQualifyingOutlier()
 f1qualifying::RunQualifyingModel()

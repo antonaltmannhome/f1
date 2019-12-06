@@ -36,6 +36,10 @@ StintSummary=function(myRace, includeInterruptedStint = FALSE, focusDriverStint 
   # i want the user to have option of providing stintDF, for the alternative strategy thing
   # but don't want user to have to send stintDF every time they run the function
   # so if you don't provice modifiedStintDF, i assume you just use normal stintDF
+  if (toFile) {
+    fileout=MakeRaceFile(myRace=myRace,	myFile='stint-summary.png')
+    png(filename = fileout, width = 700, height = 700)
+  }
   if (is.null(modifiedStintDF)) {
     modifiedStintDF = stintDF
   }
@@ -148,8 +152,7 @@ StintSummary=function(myRace, includeInterruptedStint = FALSE, focusDriverStint 
 	}
 
 	if (toFile) {
-		fileout=MakeRaceFile(myRace=myRace,	myFile='stint-summary.png')
-		savePlot(file=fileout,type='png')
+    dev.off()
 	}
 
 	### clean up after ourselves

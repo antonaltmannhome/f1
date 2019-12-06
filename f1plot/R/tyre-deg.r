@@ -3,7 +3,7 @@ PlotTyreDeg = function(myRace, toFile = FALSE) {
 	### first find out which tyres were actually used in the race
 
 	myTyreDF = raceTyreDF %>%
-				filter(race == myRace & isValidTyre30) %>%
+				filter(race == myRace) %>%
 				select(tyre, mod30TyreInt, mod30TyreSlope)
 	fastestNewTyre = with(myTyreDF, tyre[near(mod30TyreInt, 0)])
 

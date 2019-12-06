@@ -8,7 +8,7 @@ source(paste0(UPDATECODEPATH, 'fetch-data-funct.r'))
 FetchSeasonInfo = function(myYear) {
 	# have we already got this info but maybe not up to date? let's check
 
-	YRDIRTOUSE = paste0(USERPATH, 'data/', myYear)
+	YRDIRTOUSE = paste0(OUTPUTPATH, myYear)
 	dircheckmake(YRDIRTOUSE)
 	HTMLYRDIRTOUSE = paste0(HTMLPATH, myYear)
 	dircheckmake(HTMLYRDIRTOUSE)

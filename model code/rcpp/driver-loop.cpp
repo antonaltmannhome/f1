@@ -9,7 +9,7 @@ double RcppInvLogit(double x) {
 	double invlogitedx;
 	if (x < -10.0) invlogitedx = 0.0;
 	if (x > 10.0) invlogitedx = 1.0;
-	if (x > -10.0 & x < 10.0) invlogitedx =  exp(x) / (1.0 + exp(x));
+	if ( (x > -10.0) & (x < 10.0) ) invlogitedx =  exp(x) / (1.0 + exp(x));
 
 	return invlogitedx;
 }
@@ -91,8 +91,8 @@ double RcppSimulateSec(int startRank, int endRank,
 						double didOtCost,
 						double secStandardError) {
 
-	double secBuffer;
-	double secLimit;
+	double secBuffer = -99.0;
+	double secLimit = -99.0;
 	if (endRank == 1) {
 		secBuffer = -99.0;
 	}
@@ -102,17 +102,17 @@ double RcppSimulateSec(int startRank, int endRank,
 	}
 
 	bool isLeader = (endRank == 1);
-	bool isClear = (startRank == 1 & endRank == 1) |
-					(didOvertake == 0 & gotOvertake == 0 & secBuffer > 3.0);
-	bool isBlocked = (didOvertake == 0 & gotOvertake == 0 &
-						secBuffer > -98.0 & secBuffer < 3.0);
+	bool isClear = ( (startRank == 1) & (endRank == 1) ) |
+					( (didOvertake == 0) & (gotOvertake == 0) & (secBuffer > 3.0) );
+	bool isBlocked = ( (didOvertake == 0) & (gotOvertake == 0) &
+						(secBuffer > -98.0) & (secBuffer < 3.0) );
 	//Rcout << "secLimit:" << secLimit << std::endl;
 	//Rcout << "secBuffer:" << secBuffer << std::endl;
 	//Rcout << "isLeader:" << isLeader << std::endl;
 	//Rcout << "isClear:" << isClear << std::endl;
 	//Rcout << "isBlocked:" << isBlocked << std::endl;
 
-	double simSec;
+	double simSec = -99.0;
 	if (isClear) {
 		NumericVector vectorSimSec = rnorm(1, predSec, secStandardError);
 		simSec = vectorSimSec[0];
@@ -145,7 +145,7 @@ NumericVector RcppSimulateLap(IntegerVector startRank, IntegerVector endRank,
 	NumericVector endTelapse(loopSize);
 
 	for (int dsi = 0; dsi < loopSize; dsi++) {
-		double prevEndTelapse;
+		double prevEndTelapse = -99.0;
 		if (endRank[dsi] == 1) {
 			prevEndTelapse = -99.0;
 		}

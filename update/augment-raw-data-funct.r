@@ -191,7 +191,7 @@ ProcessPitstop = function(myRace, myYear) {
 }
 
 .ProcessPitstop.InsertMissingStop = function(myRace, pstab) {
-	pitStopCorrectionDF = ReadF1Data(paste0(USERPATH, 'data/pit-stop-correction.csv'), 'pitStopCorrection')
+	pitStopCorrectionDF = ReadF1Data(paste0(OUTPUTPATH, 'pit-stop-correction.csv'), 'pitStopCorrection')
 	if (any(pitStopCorrectionDF$race == myRace)) {
 		myPitStopCorrectionDF = pitStopCorrectionDF %>%
 								filter(race == myRace)

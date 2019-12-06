@@ -1,0 +1,31 @@
+So we'll now look at the final set of race pace ratings for the 2019 season. There are a few to get through so I'll spread them and the final rankings over the next few days. Here is Japan:
+
+Bottas won the race but Hamilton had an 8 second lead with 10 laps to go only to be brought into the pits. A comparison of Hamilton and Bottas's lap times reveal why Hamilton has the faster race pace rating:
+
+####
+
+Vettel has been rated as 0.5 seconds/lap faster than Leclerc in this race. This is a little dubious, if you look at their lap times here:
+
+###
+
+You will notice that all of Leclerc's included lap times have come a little later in his stint, having spent the earlier laps in the stint recovering from his early pitstop after colliding with Verstappen on lap 1. My model takes into account the age of the tyres when considering drivers' pace, but it doesn't adjust for what drivers had been doing on their tyres as they age. In Vettel's case it was running in clear air, in Leclerc's case it was following and overtaking other cars which, we often hear, damages the tyres.
+
+We next move on to Mexico:
+
+###
+
+There were a variety of tyre strategies being used in this race, here is a quick reminder:
+
+###
+
+The drivers finished in the order Hamilton/Vettel/Bottas/Leclerc so it might seem a little surprising that Bottas is ranked as the fastest of the four drivers. The reason for this is that Bottas only actually finished only 3.5 seconds off the lead having been 11 seconds off the lead after 6 laps. He ran an almost identical strategy to Vettel but gained almost 10 seconds on Vettel while in clean air, so this all makes sense I think.
+
+What is more doubtful is the Verstappen/Albon comparison. Verstappen did almost the entire race on a single set of hards. This means we firstly have the same issue as we had comparing Vettel and Leclerc in Japan, that Verstappen spent a lot of laps following and overtaking drivers while Albon had clear air throughout:
+
+###
+
+Also, while I take into account how old tyres are, I don't take into account how long drivers are planning to use their tyres for. So it seems likely that Verstappen was driving conservatively early in the race knowing he had to make the tyres last the entire distance.
+
+The finishing order (on the road) outside the top six was Perez/Ricciardo/Kvyat/Gasly and their pace is similar even though they started in the order Kvyat/Gasly/Perez/Ricciardo. I think this is a good example of how the tyre rules about starting the race on the tyres used in Q2 do not work, they just penalise the midfielders for qualifying well. I believe this rule is to change in 2020 though. Mclaren also started in the top 10 but finished well down, in their case they just lacked pace however.
+
+USA, Brazil and Abu Dhabi to follow tomorrow...
