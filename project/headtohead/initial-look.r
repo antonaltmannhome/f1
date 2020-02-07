@@ -187,7 +187,7 @@ ViewComparisonByYear = function(myYear) {
     filter(numLap1 > 0 & numLap2 > 0) %>%
     select(-c(numLap1, numLap2))
   
-  compCol = c('all', 'minusCarProb', 'minusTraffic', 'minusDeadRubber', 'fuelAdj', 'meanTyreLap1', 'meanTyreLap2')
+  compCol = c('all', 'minusCarProb', 'minusTraffic', 'minusDeadRubber', 'fuelTyreAdj', 'meanTyreLap1', 'meanTyreLap2')
   tmPairing[,compCol] = NA
   
   for (ti in 1:nrow(tmPairing)) {
