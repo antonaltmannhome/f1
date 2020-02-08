@@ -418,7 +418,31 @@ GetAllDriverTeamPairingByYear = function(myYear) {
     arrange(team, daynum) %>%
     select(-c(race, daynum)) %>%
     rename(driver1 = dnum1,
-           driver2 = dnum2)
+           driver2 = dnum2) %>%
+    arrange(team, driver1)
+  
+  # except it's better to put the same drivers first where possible, easiest to just do that manually where necessary
+  orderOverrideFile = system.file('team-mate-pairing-order-override.csv', package = 'f1data')
+  orderOverrideDF = read_csv(orderOverrideFile, col_types = cols(
+    year = col_integer(),
+    team = col_character(),
+    driver1 = col_character(),
+    driver2 = col_character()
+  ))
+  
+  toCorrectDF = orderOverrideDF %>%
+    filter(year == myYear)
+  if (nrow(toCorrectDF) > 0) {
+    for (j in 1:nrow(toCorrectDF)) {
+      toCorrectIndex = with(tmPairing, which(team == toCorrectDF$team[j] &
+                                               driver1 == toCorrectDF$driver2[j] &
+                                               driver2 == toCorrectDF$driver1[j]))
+      if (length(toCorrectIndex) > 0) {
+        tmPairing$driver1[toCorrectIndex] = toCorrectDF$driver1[j]
+        tmPairing$driver2[toCorrectIndex] = toCorrectDF$driver2[j]
+      }
+    }
+  }
   
   return(tmPairing)
 }
