@@ -192,8 +192,22 @@ ViewComparisonByYear = function(myYear) {
   
   for (ti in 1:nrow(tmPairing)) {
     rawOutput = with(tmPairing[ti,], CheckTwo(myYear, driver1, driver2, team))
+    if (rawOutput$deltaVec[1] > 0) {
+      # swap them round, easier to interpret
+      tmPairing[ti,c('driver1', 'driver2')] = tmPairing[ti,c('driver2', 'driver1')]
+      rawOutput = with(tmPairing[ti,], CheckTwo(myYear, driver1, driver2, team))
+    }
     tmPairing[ti, compCol] = CoerceComparisonToList(rawOutput)
   }
+  
+  tmPairing = tmPairing %>%
+    mutate(numAllDelta = as.numeric(gsub(' \\(.+$', '', all))) %>%
+    arrange(numAllDelta) %>%
+    select(-numAllDelta)
+  
+  # and put the pretty driver names in too
+  tmPairing$driver1 = with(driverDF, surname[match(tmPairing$driver1, driver)])
+  tmPairing$driver2 = with(driverDF, surname[match(tmPairing$driver2, driver)])
   
   return(tmPairing)
 }
