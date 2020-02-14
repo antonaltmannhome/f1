@@ -265,6 +265,16 @@ DisambiguateCircuit = function(raceDF) {
 	return(raceDF)
 }
 
+GetOtherDriverName = function(myDriv, surnameOrLongDriver = 'surname') {
+  if (surnameOrLongDriver == 'surname') {
+    myOtherName = with(driverDF, surname[match(myDriv, driver)])
+  }
+  if (surnameOrLongDriver == 'longDriver') {
+    myOtherName = with(driverDF, longDriver[match(myDriv, driver)])
+  }
+  return(myOtherName)
+}
+
 MakePrettyRaceLabel=function(raceDF) {
 	prettyNameMap = ReadF1Data(paste0(USERPATH, 'f1admin/pretty-name.csv'), 'prettyName')
 	raceDF$country = gsub('^[0-9]{4}', '', raceDF$race)

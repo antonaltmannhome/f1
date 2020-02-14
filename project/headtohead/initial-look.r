@@ -153,6 +153,33 @@ CheckTwo = function(myYear, myDriv1, myDriv2, myTeam) {
   return(toReturn)
 }
 
+MakeReadableComparison = function(myYear, myDriv1, myDriv2, myTeam) {
+  myRawOutput = CheckTwo(myYear, myDriv1, myDriv2, myTeam)
+  mySurname1 = f1data:::GetOtherDriverName(myDriv1)
+  mySurname2 = f1data:::GetOtherDriverName(myDriv2)
+  myAgeComment = paste0('average age of ',
+                        c(mySurname1, mySurname2), '\'s tyres: ',
+                        round(c(myRawOutput$meanTyreLap1, myRawOutput$meanTyreLap2), 1),
+                        ' laps (during those ', tail(myRawOutput$numObVec, 1), ' laps)')
+  
+  myReadableTB = tibble(explanation = c('include all laps (except behind safety car, inlaps, outlaps, lap 1)',
+                                        'exclude laps where either driver has a car problem',
+                                        'exclude laps where either driver is in traffic',
+                                        'exclude laps where either driver has no incentive to push',
+                                        'adjust for tyre compound and tyre age',
+                                        myAgeComment),
+                        numOfLaps = c(paste(myRawOutput$numObVec, 'laps'),
+                                      rep('', 2)),
+                        result = c(paste(ifelse(myRawOutput$deltaVec > 0,
+                                              mySurname2,
+                                              mySurname1),
+                                       round(abs(myRawOutput$deltaVec), 2),
+                                       'faster'),
+                                      rep('', 2)))
+  
+  return(myReadableTB)
+}
+
 CoerceComparisonToList = function(currentPairingList) {
   secNumObVec = paste0(round(currentPairingList$deltaVec, 3), ' (', currentPairingList$numObVec, ')')
   niceVec = c(secNumObVec,
