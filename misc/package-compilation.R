@@ -1,7 +1,6 @@
 ### if you've changed a package, paste in the relevant bit of this to recompile it
 
-setwd('c:/research/aafunct')
-devtools::install()
+devtools::install('c:/research/aafunct')
 
 devtools::install('f1admin')
 devtools::document('f1data')
