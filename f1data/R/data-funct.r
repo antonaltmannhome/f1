@@ -456,3 +456,26 @@ GetAllDriverTeamPairingByYear = function(myYear) {
   
   return(tmPairing)
 }
+
+GetAllTeamMateByDriver = function(myDriv1) {
+  # these are all the team pairings involving this driver
+  myTeamMate = rddf %>%
+    group_by(year, rr, team) %>%
+    select(year, rr, driver, team) %>%
+    group_by(rr, team) %>%
+    mutate(dummy = paste0('d', 1:n())) %>%
+    ungroup() %>%
+    spread(value = driver, key = dummy) %>%
+    filter(d1 == myDriv1 | d2 == myDriv1) %>%
+    group_by(year, team, d1, d2) %>%
+    summarise(minRace = min(rr), numRace = n()) %>%
+    ungroup() %>% 
+    arrange(minRace) %>%
+    mutate(dummy = d1,
+           toSwap = d2 == myDriv1,
+           d1 = ifelse(toSwap, d2, d1),
+           d2 = ifelse(toSwap, dummy, d2)) %>%
+    select(-c(minRace, dummy, toSwap))
+  
+  return(myTeamMate)
+}
