@@ -1,9 +1,12 @@
 ## tidy up what we've got
 
 SetUpModel()
+library(gt)
 
 lbl = f1laptimelm::CalculateFuelTyreEffect(lbl, 30)
 lbl = lazy_left_join(lbl, rddf, c('race', 'driver'), 'team')
+
+# let's get rid of 2010 data, it's dodgy
 
 HeadToHead = function(yearFilter, myDriv1, myDriv2, myTeam) {
   
@@ -13,7 +16,7 @@ HeadToHead = function(yearFilter, myDriv1, myDriv2, myTeam) {
   numComparison = 5
   compName = c('all laps', 'exclude car problem', 'exclude traffic', 'exclude dead rubber', 'adjust for model')
   deltaVec = rep(NA, numComparison)
-  numObVec = rep(NA, numComparison)
+  numObVec = rep(0, numComparison)
   
   # same as above but make presentation more attractive
   myLbl = lbl %>%
@@ -135,12 +138,18 @@ MakeH2HTibbleOutput = function(myDescription, myList) {
   
   myTB = bind_cols(myDescription, myTB)
   
+  # however, should we delete the ones with almost no observations? i think so
+  numOb = t(sapply(myList, function(x) x$numObVec))
+  myTB$toKeep = numOb[,5] > 50
+  
   return(myTB)
 }
 
 ViewAllHeadToHeadByDriver = function(myDriv1) {
   # these are all the team pairings involving this driver
   myTeamMate = f1data:::GetAllTeamMateByDriver(myDriv1)
+  myTeamMate= myTeamMate %>%
+    filter(year > 2010)
   
   yearByYearList = vector('list', nrow(myTeamMate))
   for (j in 1:nrow(myTeamMate)) {
@@ -150,10 +159,14 @@ ViewAllHeadToHeadByDriver = function(myDriv1) {
                                          myDriv2 = d2,
                                          myTeam = team))
   }
+  yearByYearTB = MakeH2HTibbleOutput(myTeamMate, yearByYearList)
   
+  # now forget the !toKeep ones ever existed, to simplify things
+  yearByYearTB = yearByYearTB %>%
+    filter(toKeep)
   
   # but I'd say we want to collapse these so it's one row for each combo
-  collapsedTeamMate = myTeamMate %>%
+  collapsedTeamMate = yearByYearTB %>%
     group_by(d1, d2, team) %>%
     summarise(yearFilter = list(year))
   
@@ -169,16 +182,19 @@ ViewAllHeadToHeadByDriver = function(myDriv1) {
   # but we want 1 row for every season plus an additional row for combined where necessary
   # let's make the tibble firstly
 
-  yearByYearTB = MakeH2HTibbleOutput(myTeamMate, yearByYearList)
   collapsedTB = MakeH2HTibbleOutput(collapsedTeamMate %>%
                                       select(-yearFilter), collapsedList)
   
   # now the really fiddly bit, putting them in order
-  maxYearByPairing = myTeamMate %>%
+  maxYearByPairing = yearByYearTB %>%
     group_by(team, d1, d2) %>%
-    summarise(maxYear = max(year))
+    summarise(maxYear = max(year),
+              numYear = n())
   
   collapsedTB = left_join(collapsedTB, maxYearByPairing, c('team', 'd1', 'd2'))
+  # no point having the ones that are only for one season
+  collapsedTB = collapsedTB %>%
+    filter(numYear > 1)
   yearByYearTB$maxYear = yearByYearTB$year
 
   collapsedTB$isSummary = TRUE
@@ -192,10 +208,7 @@ ViewAllHeadToHeadByDriver = function(myDriv1) {
   combinedTB$teamMate = with(driverDF, surname[match(combinedTB$d2, driver)])
   
   cleanCombinedTB = combinedTB %>%
-    mutate_cond(isSummary,
-                team = '',
-                teamMate = '') %>%
-    select(year2, team, teamMate, starts_with('tempCol')) %>%
+    select(year2, team, teamMate, starts_with('tempCol'), isSummary) %>%
     rename(year = year2)
   
   return(cleanCombinedTB)
@@ -205,6 +218,16 @@ ViewAllHeadToHeadByDriver = function(myDriv1) {
 
 MakeH2HGtTable = function(myDriv1) {
   h2hTB = ViewAllHeadToHeadByDriver(myDriv1)
+  # let's flag when the team mate changes
+  # don't colour by team, that doesn't change when team mate changes of course
+  h2hTB = h2hTB %>%
+    left_join(h2hTB %>%
+                group_by(team, teamMate) %>%
+                summarise(maxYear = max(year[year != 'overall'])) %>%
+                ungroup() %>%
+                arrange(maxYear) %>%
+                mutate(index =  (1:n()) %% 2),
+              c('team', 'teamMate'))
   h2hTB %>%
     gt %>%
     tab_style(
@@ -212,8 +235,7 @@ MakeH2HGtTable = function(myDriv1) {
         cell_fill(color = 'lightcyan')
       ),
       locations = cells_body(
-        columns = vars(team),
-        rows = (team =='force india')
+        rows = (index == 0)
       )
     )
   # ok, we're on our way
