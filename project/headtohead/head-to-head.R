@@ -106,19 +106,31 @@ ViewAllHeadToHeadByDriver = function(myDriv1) {
   # these are all the team pairings involving this driver
   myTeamMate = f1data:::GetAllTeamMateByDriver(myDriv1)
   
+  yearByYearList = vector('list', nrow(myTeamMate))
+  for (j in 1:nrow(collapsedTeamMate)) {
+    yearByYearList[[j]] = with(myTeamMate[j,],
+                              HeadToHead(yearFilter = year,
+                                         myDriv1 = d1,
+                                         myDriv2 = d2,
+                                         myTeam = team))
+  }
+  
+  
   # but I'd say we want to collapse these so it's one row for each combo
   collapsedTeamMate = myTeamMate %>%
     group_by(d1, d2, team) %>%
     summarise(yearFilter = list(year))
   
-  myList = vector('list', nrow(collapsedTeamMate))
+  collapsedList = vector('list', nrow(collapsedTeamMate))
   for (j in 1:nrow(collapsedTeamMate)) {
-    myList[[j]] = with(collapsedTeamMate[j,],
-               MakeReadableComparison(yearFilter = yearFilter[[1]],
+    collapsedList[[j]] = with(collapsedTeamMate[j,],
+               HeadToHead(yearFilter = yearFilter[[1]],
                                       myDriv1 = d1,
                                       myDriv2 = d2,
                                       myTeam = team))
   }
   # now the tricky bit, need to make pretty table output
+  # but we want 1 row for every season plus an additional row for combined where necessary
+  
   combinedDF = 
 }
