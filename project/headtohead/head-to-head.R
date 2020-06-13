@@ -228,7 +228,15 @@ MakeH2HGtTable = function(myDriv1) {
                 arrange(maxYear) %>%
                 mutate(index =  (1:n()) %% 2),
               c('team', 'teamMate'))
-  h2hTB %>%
+  
+  # drop coldumn 6 i think
+  h2hTB = h2hTB %>%
+    select(-tempCol6)
+  
+  myTab = h2hTB %>%
+    mutate_cond(year == 'overall',
+                team = '',
+                teamMate = '') %>%
     gt %>%
     tab_style(
       style = list(
@@ -237,6 +245,24 @@ MakeH2HGtTable = function(myDriv1) {
       locations = cells_body(
         rows = (index == 0)
       )
-    )
+    )  %>%
+    tab_style(
+      style = list(
+        cell_fill(color = 'khaki1')
+      ),
+      locations = cells_body(
+        rows = (index == 1)
+      )
+    ) %>%
+    tab_style(
+      style = list(
+        cell_text(weight = 'bold')
+      ),
+      location = cells_body(
+        columns = vars(year),
+        rows = (year == 'overall')
+      )
+    ) %>%
+    cols_hide(columns = vars(isSummary, maxYear, index))
   # ok, we're on our way
 }
