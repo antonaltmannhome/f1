@@ -186,14 +186,13 @@ ViewAllHeadToHeadByDriver = function(myDriv1) {
                                       select(-yearFilter), collapsedList)
   
   # now the really fiddly bit, putting them in order
-  maxYearByPairing = yearByYearTB %>%
+  minRrByPairing = yearByYearTB %>%
     group_by(team, d1, d2) %>%
     summarise(minMinRr = min(minRr),
-              maxYear = max(year),
               numYear = n())
   
-  collapsedTB = left_join(collapsedTB, maxYearByPairing, c('team', 'd1', 'd2'))
-  yearByYearTB = left_join(yearByYearTB, maxYearByPairing, c('team', 'd1', 'd2'))
+  collapsedTB = left_join(collapsedTB, minRrByPairing, c('team', 'd1', 'd2'))
+  yearByYearTB = left_join(yearByYearTB, minRrByPairing, c('team', 'd1', 'd2'))
   # no point having the ones that are only for one season
   collapsedTB = collapsedTB %>%
     filter(numYear > 1)
@@ -203,7 +202,7 @@ ViewAllHeadToHeadByDriver = function(myDriv1) {
   
   combinedTB = bind_rows(yearByYearTB,
                          collapsedTB) %>%
-    arrange(maxYear, minMinRr, isSummary)
+    arrange(minMinRr, isSummary)
   
   combinedTB$year2 = with(combinedTB, ifelse(isSummary, 'overall', year))
   combinedTB$teamMate = with(driverDF, surname[match(combinedTB$d2, driver)])
