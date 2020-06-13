@@ -126,7 +126,7 @@ MakeH2HTibbleOutput = function(myDescription, myList) {
   h2hOutputToVector = function(x)  {
     c(
       paste0(ifelse(x$deltaVec > 0, x$tlabb2, x$tlabb1), ' ',
-           round(ifelse(x$deltaVec > 0, x$deltaVec, -x$deltaVec), 2),
+           niceround(ifelse(x$deltaVec > 0, x$deltaVec, -x$deltaVec), 2),
            ' faster (', x$numObVec, ' laps)'),
       paste0(x$tlabb1, ': ', round(x$meanTyreLap1, 1), ' laps, ',
              x$tlabb2, ': ', round(x$meanTyreLap2, 1), ' laps (for the ', tail(x$numObVec, 1), ' laps)')
@@ -140,7 +140,7 @@ MakeH2HTibbleOutput = function(myDescription, myList) {
   
   # however, should we delete the ones with almost no observations? i think so
   numOb = t(sapply(myList, function(x) x$numObVec))
-  myTB$toKeep = numOb[,5] > 50
+  myTB$toKeep = numOb[,5] > 0
   
   return(myTB)
 }
@@ -188,21 +188,22 @@ ViewAllHeadToHeadByDriver = function(myDriv1) {
   # now the really fiddly bit, putting them in order
   maxYearByPairing = yearByYearTB %>%
     group_by(team, d1, d2) %>%
-    summarise(maxYear = max(year),
+    summarise(minMinRr = min(minRr),
+              maxYear = max(year),
               numYear = n())
   
   collapsedTB = left_join(collapsedTB, maxYearByPairing, c('team', 'd1', 'd2'))
+  yearByYearTB = left_join(yearByYearTB, maxYearByPairing, c('team', 'd1', 'd2'))
   # no point having the ones that are only for one season
   collapsedTB = collapsedTB %>%
     filter(numYear > 1)
-  yearByYearTB$maxYear = yearByYearTB$year
 
   collapsedTB$isSummary = TRUE
   yearByYearTB$isSummary = FALSE
   
   combinedTB = bind_rows(yearByYearTB,
                          collapsedTB) %>%
-    arrange(maxYear, isSummary)
+    arrange(maxYear, minMinRr, isSummary)
   
   combinedTB$year2 = with(combinedTB, ifelse(isSummary, 'overall', year))
   combinedTB$teamMate = with(driverDF, surname[match(combinedTB$d2, driver)])
@@ -211,78 +212,11 @@ ViewAllHeadToHeadByDriver = function(myDriv1) {
     select(year2, team, teamMate, starts_with('tempCol'), isSummary) %>%
     rename(year = year2)
   
+  # useful to number each block to aid colour coding
+  teamMateRle = rle(cleanCombinedTB$teamMate)$len
+  cleanCombinedTB$index = rep(1:length(teamMateRle), teamMateRle)
+
   return(cleanCombinedTB)
 }
 
 # now the fun bit, making the gt table
-
-MakeH2HGtTable = function(myDriv1, toFile = FALSE) {
-  h2hTB = ViewAllHeadToHeadByDriver(myDriv1)
-  # let's flag when the team mate changes
-  # don't colour by team, that doesn't change when team mate changes of course
-  h2hTB = h2hTB %>%
-    left_join(h2hTB %>%
-                group_by(team, teamMate) %>%
-                summarise(maxYear = max(year[year != 'overall'])) %>%
-                ungroup() %>%
-                arrange(maxYear) %>%
-                mutate(index =  (1:n()) %% 2),
-              c('team', 'teamMate'))
-  
-  # drop coldumn 6 i think
-  h2hTB = h2hTB %>%
-    select(-tempCol6)
-  
-  tempColName = paste0('tempCol', 1:5)
-  explanation = c('include all dry laps (except behind safety car, inlaps, outlaps, lap 1)',
-                  'exclude laps where either driver has a car problem',
-                  'exclude laps where either driver is in traffic',
-                  'exclude laps where either driver has no incentive to push',
-                  'adjust for tyre compound and tyre age')
-  for (j in 1:length(tempColName)) {
-    names(h2hTB)[names(h2hTB) == tempColName[j]] = explanation[j]
-  }
-  
-  myTab = h2hTB %>%
-    mutate_cond(year == 'overall',
-                team = '',
-                teamMate = '') %>%
-    gt %>%
-    tab_style(
-      style = list(
-        cell_fill(color = 'lightcyan')
-      ),
-      locations = cells_body(
-        rows = (index == 0)
-      )
-    )  %>%
-    tab_style(
-      style = list(
-        cell_fill(color = 'khaki1')
-      ),
-      locations = cells_body(
-        rows = (index == 1)
-      )
-    ) %>%
-    tab_style(
-      style = list(
-        cell_text(weight = 'bold')
-      ),
-      location = cells_body(
-        columns = vars(year),
-        rows = (year == 'overall')
-      )
-    ) %>%
-    cols_hide(columns = vars(isSummary, maxYear, index)) %>%
-    cols_width(vars(year) ~ px(65),
-               vars(team) ~ px(65),
-               vars('teamMate') ~ 90,
-               everything() ~ px(125))
-  
-  if (toFile) {
-    fileOut = paste0(OUTPUTPATH, 'misc/headtohead/', myDriv1, '.png')
-    gtsave(data = myTab, filename = fileOut)
-  }
-  # ok, we're on our way
-  return(myTab)
-}

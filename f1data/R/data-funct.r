@@ -459,8 +459,16 @@ GetAllDriverTeamPairingByYear = function(myYear) {
 
 GetAllTeamMateByDriver = function(myDriv1) {
   # these are all the team pairings involving this driver
-  myTeamMate = rddf %>%
-    group_by(year, rr, team) %>%
+  # this goes horribly wrong if a tema only enters 1 driver for a race
+  # need to filter those out first
+  
+  subRddf = rddf %>%
+    semi_join(rddf %>%
+                count(rr, team) %>%
+                filter(n == 2),
+                c('rr', 'team'))
+  
+  myTeamMate = subRddf %>%
     select(year, rr, driver, team) %>%
     group_by(rr, team) %>%
     mutate(dummy = paste0('d', 1:n())) %>%
@@ -468,14 +476,14 @@ GetAllTeamMateByDriver = function(myDriv1) {
     spread(value = driver, key = dummy) %>%
     filter(d1 == myDriv1 | d2 == myDriv1) %>%
     group_by(year, team, d1, d2) %>%
-    summarise(minRace = min(rr), numRace = n()) %>%
+    summarise(minRr = min(rr), numRace = n()) %>%
     ungroup() %>% 
-    arrange(minRace) %>%
+    arrange(minRr) %>%
     mutate(dummy = d1,
            toSwap = d2 == myDriv1,
            d1 = ifelse(toSwap, d2, d1),
            d2 = ifelse(toSwap, dummy, d2)) %>%
-    select(-c(minRace, dummy, toSwap))
+    select(-c(dummy, toSwap))
   
   return(myTeamMate)
 }
