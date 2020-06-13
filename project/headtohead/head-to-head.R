@@ -216,7 +216,7 @@ ViewAllHeadToHeadByDriver = function(myDriv1) {
 
 # now the fun bit, making the gt table
 
-MakeH2HGtTable = function(myDriv1) {
+MakeH2HGtTable = function(myDriv1, toFile = FALSE) {
   h2hTB = ViewAllHeadToHeadByDriver(myDriv1)
   # let's flag when the team mate changes
   # don't colour by team, that doesn't change when team mate changes of course
@@ -232,6 +232,16 @@ MakeH2HGtTable = function(myDriv1) {
   # drop coldumn 6 i think
   h2hTB = h2hTB %>%
     select(-tempCol6)
+  
+  tempColName = paste0('tempCol', 1:5)
+  explanation = c('include all dry laps (except behind safety car, inlaps, outlaps, lap 1)',
+                  'exclude laps where either driver has a car problem',
+                  'exclude laps where either driver is in traffic',
+                  'exclude laps where either driver has no incentive to push',
+                  'adjust for tyre compound and tyre age')
+  for (j in 1:length(tempColName)) {
+    names(h2hTB)[names(h2hTB) == tempColName[j]] = explanation[j]
+  }
   
   myTab = h2hTB %>%
     mutate_cond(year == 'overall',
@@ -263,6 +273,16 @@ MakeH2HGtTable = function(myDriv1) {
         rows = (year == 'overall')
       )
     ) %>%
-    cols_hide(columns = vars(isSummary, maxYear, index))
+    cols_hide(columns = vars(isSummary, maxYear, index)) %>%
+    cols_width(vars(year) ~ px(65),
+               vars(team) ~ px(65),
+               vars('teamMate') ~ 90,
+               everything() ~ px(125))
+  
+  if (toFile) {
+    fileOut = paste0(OUTPUTPATH, 'misc/headtohead/', myDriv1, '.png')
+    gtsave(data = myTab, filename = fileOut)
+  }
   # ok, we're on our way
+  return(myTab)
 }
