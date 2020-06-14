@@ -41,7 +41,7 @@ DriverRaceHeadToHead = function(myRace, myDriv1, myDriv2, numberOfSimulations = 
 	return(headToHeadProbByLap)
 }
 
-DriverRaceCompareSituation = function(myRace, myDriv1, myDriv2) {
+DriverRaceCompareSituation = function(myRace, myDriv1, myDriv2, toFile = FALSE) {
   # there might be a better name for this function, easily confused with DriverRaceHeadToHead
   # that one comapres two drivers' chance of beating each other.
   # this one just dispalys where two drivers were on track to finish and their probability of finshing there
@@ -62,6 +62,11 @@ DriverRaceCompareSituation = function(myRace, myDriv1, myDriv2) {
                   geom_line(aes(x = lap, y = modalFinPosProb, col = driver)) +
                   ylab('probability of finishing in\nmost likely finishing position')
   myPlot = gridExtra::grid.arrange(positionPlot, probabilityPlot, nrow = 2)
+  
+  if (toFile) {
+    fileOut = MakeRaceFile(myRace, paste0('driver-head-to-head-simulation-', myDriv1, '-', myDriv2, '.png'))
+    aafunct::NiceGgSave(myPlot = myPlot, myFile = fileOut)
+  }
   
   print(myPlot)
 }
