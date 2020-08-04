@@ -8,6 +8,7 @@ if (FALSE) {
                 arrange(maxYear) %>%
                 mutate(index =  (1:n()) %% 2),
               c('team', 'teamMate'))
+  #
 }
 
 MakeH2HGtTable = function(myDriv1, toFile = FALSE) {
