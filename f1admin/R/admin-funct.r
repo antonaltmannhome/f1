@@ -82,7 +82,7 @@ GetRawDataStatus = function(myYear) {
 								fetched = FALSE,
 								augmented = FALSE,
 								writtenToDatabase = FALSE)
-		write_csv(rawDataStatus, path = rawDataStatusFile)
+		write_csv(rawDataStatus, file = rawDataStatusFile)
 	}
 
 	rawDataStatus = ReadF1Data(rawDataStatusFile, 'rawDataStatus')
@@ -92,7 +92,7 @@ GetRawDataStatus = function(myYear) {
 
 UpdateRawDataStatus = function(myYear, rawDataStatus) {
 	rawDataStatusFile = MakeYearFile(myYear, 'raw-data-status.csv')
-	write_csv(rawDataStatus, path = rawDataStatusFile)
+	write_csv(rawDataStatus, file = rawDataStatusFile)
 }
 
 CreateModelColumn = function() {

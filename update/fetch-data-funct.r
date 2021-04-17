@@ -1,10 +1,14 @@
 FetchSeasonInfoFromForix = function(myYear, YRDIRTOUSE)	{
 	### let's get latest incarnation of raceDF, it might have changed due to shortened or cancelled race..
-	visitsave(paste('http://forix.autosport.com/cp.php?l=0&r=',myYear,'&c=1',sep=''), thiscomputer, paste(YRDIRTOUSE,'/raceDF.htm',sep=''))
+  webpage = paste0('http://forix.autosport.com/cp.php?l=0&r=',myYear,'&c=1')
+  destinationFile = paste0(YRDIRTOUSE,'/raceDF.htm')
+	autohotkeys:::visitsave(webpagelist = webpage,
+	                        filenamelist = destinationFile,
+	                        browserchoice = 'Chrome')
 	Sys.sleep(1)
 	### now scan that in and save neatly
 	MakeRaceDF(myYear, YRDIRTOUSE)
-	raceDF=read.csv(paste(YRDIRTOUSE,'/raceDF.csv',sep=''),as.is=T)
+	raceDF=read.csv(paste0(YRDIRTOUSE,'/raceDF.csv'), as.is=T)
 	return(raceDF)
 }
 
@@ -316,7 +320,11 @@ FetchDriverRacePage = function(myRace, entryDF, myHtmlName) {
 	gotlist=rep(0,length(dpageref))
 	for (j in 1:length(dfilename)) gotlist[j]=file.exists(dfilename[j])
 	cat('Have got ',sum(gotlist),', ',sum(gotlist==0),' to go...\n',sep='')
-	for (j in which(gotlist==0)) visitsave(dpageref[j], thiscomputer, dfilename[j])
+	for (j in which(gotlist==0)) {
+	  autohotkeys:::visitsave(webpagelist = dpageref[j], 
+	                          filenamelist = dfilename[j],
+	                          browserchoice = 'Chrome')
+	}
 
 	### however, that will download faulty files sometimes, so we can check and delete those now:
 

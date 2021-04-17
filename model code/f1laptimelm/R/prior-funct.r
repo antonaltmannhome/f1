@@ -13,13 +13,23 @@ MakeFuelPrior = function(modelchoice, lbl, raceDF, rddf) {
 
   raceDF$crudeFuelCoef = NA
   for (myYear in unYear) {
-    mod = lm(sec ~ factor(dty) + fuel * factor(race) + tyreLap * factor(race),
-              data = lbl %>% filter(isGood & year == myYear))
-    # then we extract the fuel coefs from that
-    fuelCoef = coef(mod)[grep('fuel', names(coef(mod)))]
-    # the model has an 'intercept' fuel coef, then all others are differences from that one
-    fuelCoef[2:length(fuelCoef)] = fuelCoef[2:length(fuelCoef)] + fuelCoef[1]
-    names(fuelCoef) = mod$xlevels[['factor(race)']]
+    numRaceWithinYear = with(lbl, length(unique(race[isGood & year == myYear])))
+    if (numRaceWithinYear == 1) {
+      onlyRace = with(lbl, unique(race[isGood & year == myYear]))
+      mod = lm(sec ~ factor(dty) + fuel + tyreLap,
+               data = lbl %>% filter(isGood & year == myYear))
+      fuelCoef = coef(mod)[grep('fuel', names(coef(mod)))]
+      names(fuelCoef) = onlyRace
+    }
+    if (numRaceWithinYear > 1) {
+      mod = lm(sec ~ factor(dty) + fuel * factor(race) + tyreLap * factor(race),
+               data = lbl %>% filter(isGood & year == myYear))
+      # then we extract the fuel coefs from that
+      fuelCoef = coef(mod)[grep('fuel', names(coef(mod)))]
+      # the model has an 'intercept' fuel coef, then all others are differences from that one
+      fuelCoef[2:length(fuelCoef)] = fuelCoef[2:length(fuelCoef)] + fuelCoef[1]
+      names(fuelCoef) = mod$xlevels[['factor(race)']]
+    }
     raceDF$crudeFuelCoef[match(names(fuelCoef), raceDF$race)] = as.numeric(fuelCoef)
   }
   raceDF = left_join(raceDF,
@@ -42,17 +52,25 @@ MakeFuelPrior = function(modelchoice, lbl, raceDF, rddf) {
 }
 
 GetCrudeYearlyCoef = function(rddf, myYear) {
-  mod = lm(modQualRawDCoef ~ factor(race) + factor(dty) - 1,
-                              data = rddf %>% filter(year == myYear))
+  uniqueRaceWithinYear = with(rddf, unique(race[year == myYear]))
+  if (length(uniqueRaceWithinYear) > 1) {
+    mod = lm(modQualRawDCoef ~ factor(race) + factor(dty) - 1,
+             data = rddf %>% filter(year == myYear))
+    raceIntercept = coef(mod)[grep('factor\\(race\\)', names(coef(mod)))]
+    names(raceIntercept) = gsub('.+\\)', '', names(raceIntercept))
+  }
+  if (length(uniqueRaceWithinYear) == 1) {
+    mod = lm(modQualRawDCoef ~ factor(dty),
+             data = rddf %>% filter(year == myYear))
+    raceIntercept = coef(mod)[grep('\\(Intercept\\)', names(coef(mod)))]
+    names(raceIntercept) = uniqueRaceWithinYear
+  }
   dtyCoef = coef(mod)[grep('factor\\(dty\\)', names(coef(mod)))]
   names(dtyCoef) = gsub('.+\\)', '', names(dtyCoef))
   # but of course sutil or whoever is missing, let's add them in
   dtyCoef = c(0, dtyCoef)
   names(dtyCoef)[1] = mod$xlevels[['factor(dty)']][1]
   offset = mean(dtyCoef)
-
-  raceIntercept = coef(mod)[grep('factor\\(race\\)', names(coef(mod)))]
-  names(raceIntercept) = gsub('.+\\)', '', names(raceIntercept))
 
   dtyCoef = dtyCoef - offset
   raceIntercept = raceIntercept + offset

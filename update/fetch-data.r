@@ -1,6 +1,5 @@
 ### write the code to get hold of the qualifying data and the entry list
 
-source(paste0(AHKPATH, 'ahkfunct.r'))
 source(paste0(UPDATECODEPATH, 'fetch-data-funct.r'))
 
 ### get names from the coversheet
@@ -47,9 +46,9 @@ FetchSeasonInfo = function(myYear) {
 	
 	# now get the web pages
 	for (ri in 1:length(raceToGet)) {
-		visitsave(webpagelist = unlist(pagedf[ri, ]),
-					thiscomputer = thiscomputer,
-					filenamelist = MakeHtmlRaceFile(raceToGet[ri], filedf$file))
+		autohotkeys:::visitsave(webpagelist = unlist(pagedf[ri, ]),
+					                  filenamelist = MakeHtmlRaceFile(raceToGet[ri], filedf$file),
+					                  browserchoice = 'Chrome')
 	}
 	
 	if (FALSE) {

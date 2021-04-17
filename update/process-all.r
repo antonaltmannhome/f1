@@ -5,7 +5,7 @@ source(paste0(UPDATECODEPATH, 'fetch-data.r'))
 source(paste0(UPDATECODEPATH, 'augment-raw-data.r'))
 source(paste0(UPDATECODEPATH, 'transfer-data-to-database.r'))
 
-myYear = 2019
+myYear = 2020
 
 FetchSeasonInfo(myYear)
 AugmentRawData(myYear)
